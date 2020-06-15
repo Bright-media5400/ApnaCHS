@@ -1,0 +1,39 @@
+﻿<!-- Toggle -->
+<div class="h-60">
+    <div class="">
+        <ul class="">
+            <li class="top-header">All flats</li>
+        </ul>
+    </div>
+    <div class="tab-content">
+        <div id="payment" class="tab-pane fade in active">
+            <div class="card1" ng-repeat="udf in flatList">
+                <a href>
+                    <div class="row" style="margin-bottom: 0px;">
+                        <div class="col s2">
+                            <div class="card-field-img">
+                                <img src="assets/images/buildings.png" height="50">
+                            </div>
+                        </div>
+                        <div class="col s10">
+                            <div class="amount-weight">
+                                Building :  {{ udf.building }}
+                            </div>
+                            <div class="row" style="margin-bottom: 0px;">
+                                <div class="col s6 card-field-regno">
+                                    Floor: {{udf.floor}}
+                                </div>
+                                <div class="col s6 card-field-city">
+                                    Flat: {{ udf.flat }}
+                                </div>
+                            </div>
+                            <p class="card-field">Current Owner : {{ udf.currentOwner }}</p>
+                            <p class="card-field">Current Tenant : {{ udf.currentTenant }}</p>
+                         </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Toggle End -->

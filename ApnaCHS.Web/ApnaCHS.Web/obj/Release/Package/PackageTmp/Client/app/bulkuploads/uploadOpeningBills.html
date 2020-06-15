@@ -1,0 +1,90 @@
+﻿
+<div class="col-md-12">
+    <div class="panel">
+        <div class="panel-heading">
+            <div class="panel-title">
+                <h3>Upload bills</h3>
+                <br />
+
+                <div class="form-group row">
+                    <form ng-submit="uploadExcel()">
+                        <div class="col-sm-3">
+                            <input type="file" class="form-control" name="file-upload" id="file-upload" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                                   onchange="angular.element(this).scope().saveExcel(this.files)" required />
+                        </div>
+                        <div class="col-sm-3">
+                            <button type="submit" class="btn btn-primary" title="Upload">
+                                <i class="fa fa-upload" aria-hidden="true"></i>Upload
+                            </button>
+                            <button type="button" class="btn btn-default" title="Clear" ng-click="clear()">
+                                <i class="fa fa-eraser" aria-hidden="true"></i>Clear
+                            </button>
+
+                        </div>
+                    </form>
+
+                    <form ng-submit="save()" ng-if="uploadList.length > 0">
+                        <div class="col-sm-2">
+                            <input type="date" max="{{ todayDate | date:'yyyy-MM-dd' }}" data-date-format="dd/MM/yyyy" class="form-control" id="generationdate"
+                                   title="Opening Date" placeholder="Opening Date" ng-model="formData.generatedDate" required>
+                        </div>
+                        <div class="col-sm-2">
+                            <select class="form-control" id="facility" ng-model="formData.facility" ng-options="ug.name for ug in facilities" required>
+                                <option value="">Select a facility</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-2">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fa fa-save" ng-if="!uploadStarted"></i><i class="fa fa-spinner" ng-if="uploadStarted"></i>Save
+                            </button>
+                            <div class="btn-group" ng-if="resultAvailable">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Export Result <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a href ng-click="onAllExportResult()">All</a></li>
+                                    <li><a href ng-click="onFailedExportResult()">Failed</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-md-12">
+                        <button type="button" class="btn btn-default" ng-click="onBackClick()">Back</button>
+                        <button type="button" class="btn btn-default" ng-click="downloadExcel()">
+                            <i class="fa fa-file-excel-o"></i>Export Template
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+                <thead class="bg-primary">
+                    <tr>
+                        <th>Sr No.</th>
+                        <th>Receipt No</th>
+                        <th>Flat Name</th>
+                        <th>Amount</th>
+                        <th>Result</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="udf in uploadList">
+                        <td><span>{{ udf.srno }}</span></td>
+                        <td><span>{{ udf.receiptNo }}</span></td>
+                        <td><span>{{ udf.flatname }}</span></td>
+                        <td><span>{{ udf.amount }}</span></td>
+                        <td>
+                            <span class="color-success" ng-if="udf.isSuccess" ng-bind-html="udf.message"></span>
+                            <span class="color-red" ng-if="!udf.isSuccess" ng-bind-html="udf.message"></span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- /.panel -->
+</div>

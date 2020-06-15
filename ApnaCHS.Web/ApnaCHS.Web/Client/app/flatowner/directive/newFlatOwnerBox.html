@@ -1,0 +1,57 @@
+﻿<form class="form-horizontal" name="userForm" ng-submit="submit()">
+
+    <div class="form-group">
+        <label for="name" class="col-xs-4 control-label">Name<span class="color-red">*</span></label>
+        <div class="col-xs-12 col-md-4">
+            <input type="text" class="form-control" id="name" placeholder="Name" ng-model="formData.name" required>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="mobileNo" class="col-xs-4 control-label">Mobile No<span class="color-red">*</span></label>
+        <div class="col-xs-12 col-md-4">
+            <input type="text" maxlength="10" class="form-control" id="mobileNo" placeholder="Mobile No" ng-model="formData.mobileNo" required number-field>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="email" class="col-xs-4 control-label">Email<span class="color-red">*</span></label>
+        <div class="col-xs-12 col-md-4">
+            <input type="email" class="form-control" id="email" placeholder="Email" ng-model="formData.emailId" required>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="gender" class="col-xs-4 control-label">Gender<span class="color-red">*</span></label>
+        <div class="col-xs-12 col-md-4">
+            <select class="form-control" id="gender" ng-model="formData.gender" ng-options="ug.text for ug in genderList" required>
+                <option value="">Select a Gender</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="aadhaarCardNo" class="col-xs-4 control-label">Aadhaar Card No</label>
+        <div class="col-xs-12 col-md-4">
+            <input type="text" maxlength="12" class="form-control" id="aadhaarCardNo" placeholder="Aadhaar Card No" ng-model="formData.aadhaarCardNo" number-field>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="dateOfBirth" class="col-xs-4 control-label">Date Of Birth</label>
+        <div class="col-xs-12 col-md-4">
+            <input type="date" max="{{ todayDate | date:'yyyy-MM-dd' }}" data-date-format="dd/MM/yyyy" class="form-control" id="dateOfBirth" placeholder="Date Of Birth" ng-model="formData.dateOfBirth">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="memberSinceDate" class="col-xs-4 control-label">Member Since Date<span class="color-red">*</span></label>
+        <div class="col-xs-12 col-md-4">
+            <input type="date" max="{{ todayDate | date:'yyyy-MM-dd' }}" data-date-format="dd/MM/yyyy" class="form-control" id="memberSinceDate" placeholder="Member Since Date" ng-model="formData.memberSinceDate" required>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button id="cancelNewFlatOwnerBox" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn btn-primary" ng-disabled="userForm.$invalid">Create</button>
+    </div>
+
+
+</form>

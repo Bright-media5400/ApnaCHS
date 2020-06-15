@@ -1,0 +1,88 @@
+﻿
+<div class="col-md-12">
+    <div class="panel">
+        <div class="panel-heading">
+            <div class="panel-title">
+                <h3>Upload new flat owner's vehicle details</h3>
+                <br />
+                <form ng-submit="uploadExcel()">
+                    <div class="form-group row">
+                        <div class="col-sm-3">
+                            <input type="file" class="form-control" name="file-upload" id="file-upload" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                                   onchange="angular.element(this).scope().saveExcel(this.files)" required />
+                        </div>
+                        <div class="col-sm-3">
+                            <button type="submit" class="btn btn-primary" title="Upload">
+                                <i class="fa fa-upload" aria-hidden="true"></i>Upload
+                            </button>
+                            <button type="button" class="btn btn-default" title="Clear" ng-click="clear()">
+                                <i class="fa fa-eraser" aria-hidden="true"></i>Clear
+                            </button>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <button type="button" class="btn btn-default" ng-click="onBackClick()">Back</button>
+                            <button type="button" class="btn btn-default" ng-click="search()">
+                                <i class="fa fa-file-excel-o"></i>Export Template
+                            </button>
+                            <button type="button" class="btn btn-primary" ng-click="save()" ng-if="uploadList.length > 0">
+                                <i class="fa fa-save" ng-if="!uploadStarted"></i><i class="fa fa-spinner" ng-if="uploadStarted"></i>Save
+                            </button>
+                            <div class="btn-group" ng-if="resultAvailable">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Export Result <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a href ng-click="onAllExportResult()">All</a></li>
+                                    <li><a href ng-click="onFailedExportResult()">Failed</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+                <thead class="bg-primary">
+                    <tr>
+                        <th>Society</th>
+                        <th>Building</th>
+                        <th>Floor</th>
+                        <th>Flat</th>
+                        <th>Flat Owner</th>
+                        <th>Flat Owner Type</th>
+                        <th>Name</th>
+                        <th>Make</th>
+                        <th>Number</th>
+                        <th>Type</th>
+                        <th>Result</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="udf in uploadList" ng-if="udf.building">
+                        <td><span>{{ udf.society }}</span></td>
+                        <td><span>{{ udf.building }} - {{ udf.wing }}</span></td>
+                        <!--<td class="cell-max-pre-350"><span> {{ udf.description }} </span></td>-->
+                        <td><span>{{ udf.floor }}</span></td>
+                        <td><span>{{ udf.flat }}</span></td>
+                        <td><span>{{ udf.flatOwner }}</span></td>
+                        <td><span>{{ udf.flatOwnerType }}</span></td>
+                        <td><span>{{ udf.name }}</span></td>
+                        <td><span>{{ udf.make }}</span></td>
+                        <td><span>{{ udf.number }}</span></td>
+                        <td><span>{{ udf.type }}</span></td>
+                        <td>
+                            <span class="color-success" ng-if="udf.isSuccess" ng-bind-html="udf.message"></span>
+                            <span class="color-red" ng-if="!udf.isSuccess" ng-bind-html="udf.message"></span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- /.panel -->
+</div>

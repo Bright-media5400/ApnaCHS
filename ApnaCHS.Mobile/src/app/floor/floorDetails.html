@@ -1,0 +1,83 @@
+<!-- Payment Toggle -->
+<div class="h-60">
+    <div class="tab-content">
+        <div id="payment" class="tab-pane fade in active">
+
+                <div class="card-tabs">
+                    <ul class="tabs tabs-fixed-width">
+                        <li class="tab"><a class="active" href="#details">Details</a></li>
+                        <li class="tab" ng-if="editFormData.type == 1"><a href="#floor">Flats</a></li>
+                        <li class="tab" ng-if="editFormData.type == 1 || editFormData.type == 2"><a href="#parking">Parkings</a></li>
+                        <li class="tab" ng-if="editFormData.type == 1 || editFormData.type == 3"><a href="#commercialspace">Commercial Spaces</a></li>
+                    </ul>
+                </div>
+                    <div id="details">
+                        <div class="card1">
+                            <div class="row" style="margin-bottom: 0px;">
+                                <div class="col s4">
+                                    <div class="card-field-img" style="text-align:center">
+                                        <img src="assets/images/floor.png" height="75">
+                                    </div>
+                                </div>
+                                <div class="col s8">
+                                    <div class="amount-weight">Name : {{ editFormData.name }}</div>
+                                    <div  class="card-field">Floor Type : {{ floorType.text }}</div>
+                                </div>
+                           </div>
+                        </div>
+                     </div>
+                    <div id="floor" ng-if="editFormData.type == 1">
+                        <div class="card1" ng-repeat="flat in editFormData.flats">
+                            <a href="#!flat/details/{{flat.id}}" class="">
+                            <div class="row" style="margin-bottom: 0px;">
+                                <div class="col s2" style="font-size: 50px;">
+                                    <i style="color: #333;" class="fa fa-home"></i>
+                                </div>
+                                <div class="col s10">
+                                    <i class="fa fa "></i>
+                                    <div class="amount-weight">{{ flat.name }}</div>
+                                    <p class="card-field">{{ flatType.text }}</p>
+                                </div>
+                                
+                            </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div id="parking" ng-if="editFormData.type == 1 || editFormData.type == 2">
+                        <div class="card1" ng-repeat="flatParking in editFormData.flatParkings">
+                            <div class="row" style="margin-bottom: 0px;">
+                                <div  style="font-size: 50px;" class="col s3">
+                                    <i ng-if="flatParking.type.id == 1" class="fa fa-motorcycle"></i><i ng-if="flatParking.type.id == 2" class="fa fa-car"></i>
+                                </div>
+                                <div class="col s9">
+                                   <div class="amount-weight">{{ flatParking.name }}</div>
+                                   <p class="card-field">{{ flatParking.type.text }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="commercialspace" ng-if="editFormData.type == 1 || editFormData.type == 3">
+                    <div class="card1" ng-repeat="flat in editFormData.flats | filter : { isCommercialSpace : true } : true">
+                        <a href="#!flat/details/{{flat.id}}" class="">
+                       <div class="row">
+                            <div class="col s4" style="font-size: 50px;">
+                                <i class="fa fa-university"></i>
+                            </div>
+                            <div class="col s6">
+                                <div class="amount-weight">{{ flat.name }}</div>
+                                  {{ flat.flatType.text }}
+                            <p></p>
+                            </div>
+                        </div>
+                    </a>
+                    </div>
+              </div>
+        </div>
+    </div>
+</div>
+<!-- Payment Toggle End -->
+
+<script>
+    $('.tabs').tabs();
+</script>
+                

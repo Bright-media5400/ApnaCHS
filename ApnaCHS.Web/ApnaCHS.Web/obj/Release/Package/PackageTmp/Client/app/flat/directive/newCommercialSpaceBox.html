@@ -1,0 +1,69 @@
+﻿<div class="modal-dialog" role="document" style="width: 1020px;">
+    <form class="form-horizontal" name="userCSForm" ng-submit="submitCS()">
+        <div class="modal-content" style="width: 1020px;">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Create new commercial space<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="noofflats" class="col-xs-3 control-label">Total Commercial Space</label>
+                    <div class="col-xs-12 col-md-9">
+                        <input type="number" class="form-control" id="noofflats" placeholder="No of same commercial space to be added" ng-model="formData.noofflats">
+                    </div>
+                </div>
+
+                <div class="form-group" ng-if="!formData.noofflats || formData.noofflats < 2">
+                    <label for="name" class="col-xs-3 control-label">Name<span class="color-red">*</span></label>
+                    <div class="col-xs-12 col-md-9">
+                        <input type="text" class="form-control" id="name" placeholder="Name" ng-model="formData.name" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+
+                    <label for="flatType" class="col-xs-6 col-md-3 control-label">Type<span class="color-red">*</span></label>
+                    <div class="col-xs-12 col-md-3">
+                        <select class="form-control" id="flatType" ng-model="formData.flatType" ng-options="ug.text for ug in udfList" required>
+                            <option value="">Select a Type</option>
+                        </select>
+                    </div>
+
+                    <label for="totalArea" class="col-xs-3 control-label">Total Area<span class="color-red">*</span></label>
+                    <div class="col-xs-12 col-md-3">
+                        <input type="number" min="1" class="form-control" id="totalArea" title="Total Area in sqft"
+                               placeholder="Total Area in sqft" ng-model="formData.totalArea" required>
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <label for="buildUpArea" class="col-xs-3 control-label">Build-Up Area</label>
+                    <div class="col-xs-12 col-md-3">
+                        <input type="number" min="1" class="form-control" id="buildUpArea" title="Build-Up Area in sqft"
+                               placeholder="Build-Up Area in sqft" ng-model="formData.buildUpArea">
+                    </div>
+
+                    <label for="carpetArea" class="col-xs-3 control-label">Carpet Area<span class="color-red">*</span></label>
+                    <div class="col-xs-12 col-md-3">
+                        <input type="number" min="1" class="form-control" id="carpetArea" title="Carpet Area in sqft"
+                               placeholder="Carpet Area in sqft" ng-model="formData.carpetArea" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="haveParking" class="col-xs-3 control-label"></label>
+                    <div class="col-xs-12 col-md-9">
+                        <input type="checkbox" id="haveParking" title="Have Parking"
+                               placeholder="Have Parking" ng-model="formData.haveParking">Have Separate Parking
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" ng-disabled="userCSForm.$invalid">Create</button>
+                <button id="cancelNewCommercialSpaceBox" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <!--<button type="button" ng-click="addNewFacility()" class="btn btn-primary">Yes</button>-->
+            </div>
+        </div>
+    </form>
+</div>

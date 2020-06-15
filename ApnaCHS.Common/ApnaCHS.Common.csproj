@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6B6F5722-0677-4FC0-A2D3-EBACB1169634}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ApnaCHS.Common</RootNamespace>
+    <AssemblyName>ApnaCHS.Common</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ApprovalReply.cs" />
+    <Compile Include="AttendanceSearchParams.cs" />
+    <Compile Include="BillingSearchParams.cs" />
+    <Compile Include="ApplicationRoleSearchParams.cs" />
+    <Compile Include="BillingTransactionSearchParams.cs" />
+    <Compile Include="Common.cs" />
+    <Compile Include="ComplexSearchParams.cs" />
+    <Compile Include="Enums.cs" />
+    <Compile Include="FacilitySearchParams.cs" />
+    <Compile Include="FlatOwnerFamilySearchParams.cs" />
+    <Compile Include="FlatOwnerSearchParams.cs" />
+    <Compile Include="FlatParkingSearchParams.cs" />
+    <Compile Include="FlatSearchParams.cs" />
+    <Compile Include="FloorSearchParams.cs" />
+    <Compile Include="GenerateBillResult.cs" />
+    <Compile Include="MaintenanceCostDefinitionSearchParams.cs" />
+    <Compile Include="MaintenanceCostSearchParams.cs" />
+    <Compile Include="MaintenanceReceiptDetailSearchParams.cs" />
+    <Compile Include="MaintenanceReceiptSearchParams.cs" />
+    <Compile Include="PendingBill.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReportFamilySearchParams.cs" />
+    <Compile Include="ReportFlatOwnersTenantsDetail.cs" />
+    <Compile Include="ReportFlatOwnersVehicleDetail.cs" />
+    <Compile Include="SecurityStaffSearchParams.cs" />
+    <Compile Include="SocietyAssetSearchParams.cs" />
+    <Compile Include="SocietyDocumentSearchParams.cs" />
+    <Compile Include="SocietySearchParams.cs" />
+    <Compile Include="SocietyStaffSearchParams.cs" />
+    <Compile Include="UploadFlat.cs" />
+    <Compile Include="UploadFlatOwner.cs" />
+    <Compile Include="UploadReply.cs" />
+    <Compile Include="VehicleSearchParams.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

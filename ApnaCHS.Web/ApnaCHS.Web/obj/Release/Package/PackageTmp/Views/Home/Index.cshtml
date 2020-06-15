@@ -1,0 +1,391 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="utf-8">
+    <base href="@Url.Content("~/")" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    @*<meta name="viewport" content="width=device-width, initial-scale=1">*@
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0' />
+    <title>Apna CHS</title>
+
+    <!-- ========== COMMON STYLES ========== -->
+    <link rel="stylesheet" href="~/Client/theme/css/bootstrap.min.css" media="screen">
+    <link rel="stylesheet" href="~/Client/theme/css/font-awesome.min.css" media="screen">
+    <link rel="stylesheet" href="~/Client/theme/css/animate-css/animate.min.css" media="screen">
+    <link rel="stylesheet" href="~/Client/theme/css/lobipanel/lobipanel.min.css" media="screen">
+    <!-- ========== PAGE STYLES ========== -->
+    <link rel="stylesheet" href="~/Client/theme/css/prism/prism.css" media="screen"> <!-- USED FOR DEMO HELP - YOU CAN REMOVE IT -->
+    <link rel="stylesheet" href="~/Client/theme/css/toastr/toastr.min.css" media="screen">
+    <link rel="stylesheet" href="~/Client/theme/css/icheck/skins/line/blue.css">
+    <link rel="stylesheet" href="~/Client/theme/css/icheck/skins/line/red.css">
+    <link rel="stylesheet" href="~/Client/theme/css/icheck/skins/line/green.css">
+    <link rel="stylesheet" href="~/Client/theme/css/bootstrap-tour/bootstrap-tour.css">
+    <link rel="stylesheet" href="~/Client/theme/css/select2/select2.min.css">
+    <!-- ========== THEME CSS ========== -->
+    <link rel="stylesheet" href="~/Client/theme/css/main.css" media="screen">
+    <link rel="stylesheet" href="~/Client/assets/css/custom.css" media="screen">
+
+    <link rel="stylesheet" type="text/css" href="~/Client/theme/css/date-picker/jquery.timepicker.css" />
+    <link rel="stylesheet" type="text/css" href="~/Client/theme/css/date-picker/bootstrap-datepicker.css" />
+    <link rel="stylesheet" type="text/css" href="~/Client/theme/css/bootstrap-switch/bootstrap-switch.min.css">
+
+    <link href="~/Client/assets/js/multiselect/bt-multiselect-style.css" rel="stylesheet" />
+    <link href="~/Client/assets/js/multiselect/multiselect.css" rel="stylesheet" />
+
+    <!-- ========== MODERNIZR ========== -->
+    <script src="~/Client/theme/js/modernizr/modernizr.min.js"></script>
+
+</head>
+
+<body class="top-navbar-fixed" ng-controller="homeController">
+
+    <div class="main-wrapper" ng-show="Init && !isUserAuthenticated" ng-controller="login">
+        <div class="login-bg-color bg-black-300">
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <div class="panel login-box">
+                        <div class="panel-heading">
+                            <div class="panel-title text-center">
+                                <h4>Welcome to Apna CHS Administration Portal</h4>
+                            </div>
+                        </div>
+                        <div class="panel-body p-20">
+                            <form ng-submit="signIn()">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Username</label>
+                                    <input type="text" class="form-control" id="username" placeholder="Username" autocomplete="off" ng-model="signinData.username" required autofocus>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Password</label>
+                                    <input type="password" class="form-control" id="password" placeholder="Password" ng-model="signinData.password" required>
+                                </div>
+
+                                <div class="checkbox op-check">
+                                    <label>
+                                        <input type="checkbox" name="remember" class="flat-blue-style ml-10"> <span class="ml-30">Remember me</span>
+                                    </label>
+                                </div>
+                                <div class="form-group mt-20">
+                                    <div class="">
+                                        <button ng-disabled="!signinData.username || !signinData.password" type="submit" class="btn btn-success btn-labeled pull-right">Login<span class="btn-label btn-label-right"><i class="fa fa-check"></i></span></button>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+
+                                <div class="alert alert-success" ng-show="isSigningIn.value">Just a moment loggin...</div>
+                                <div class="alert alert-danger" ng-show="loginError.value">{{loginError.value}}</div>
+
+                            </form>
+                            <hr>
+                            <!-- /.text-center -->
+                        </div>
+                    </div>
+                    <!-- /.panel -->
+                    @{
+                        var startYear = 2019;
+                        var actualYear = DateTime.Now.Year;
+                        var isDiffYear = actualYear > startYear;
+                        var message = isDiffYear ? String.Format("{0} - {1}", startYear, actualYear) : actualYear.ToString();
+                    }
+                    <p class="text-muted text-center"><small>Copyright © ApnaCHS @message</small></p>
+                </div>
+                <!-- /.col-md-6 col-md-offset-3 -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /. -->
+    </div>
+    <!-- /.main-wrapper -->
+
+    <div class="main-wrapper" ng-show="Init && isUserAuthenticated">
+        <!-- ========== TOP NAVBAR ========== -->
+        <nav class="navbar top-navbar bg-white box-shadow">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="navbar-header no-padding">
+                        <a class="navbar-brand">
+                            <span>ApnaCHS App</span>
+                            @*<img src="~/Client/theme/images/lottery.svg" alt="Options - Admin Template" class="logo">*@
+                        </a>
+                        <span class="small-nav-handle hidden-sm hidden-xs" ng-show="type == 1"><i class="fa fa-exchange"></i></span>
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <i class="fa fa-ellipsis-v"></i>
+                        </button>
+                        <button type="button" class="navbar-toggle mobile-nav-toggle">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                    </div>
+                    <!-- /.navbar-header -->
+                    <div class="collapse navbar-collapse" id="navbar-collapse-1">
+                        <ul class="nav navbar-nav" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
+                            @*<li class="hidden-sm hidden-xs"><a href="#" class="user-info-handle"><i class="fa fa-user"></i></a></li>*@
+                            <li class="hidden-sm hidden-xs"><a href="#" class="full-screen-handle"><i class="fa fa-arrows-alt"></i></a></li>
+                            @*<li class="hidden-sm hidden-xs"><a href="#"><i class="fa fa-search"></i></a></li>*@
+                            <li class="hidden-xs hidden-xs"><!-- <a href="#">My Tasks</a> --></li>
+                            @*<li class=""><a href="#" class="color-primary"><i class="fa fa-diamond"></i> Upgrade</a></li>*@
+                        </ul>
+                        <!-- /.nav navbar-nav -->
+                        <ul class="nav navbar-nav navbar-right" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
+                            @*<li class="dropdown">
+                                    <a href="#" class="dropdown-toggle bg-primary tour-one" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-plus-circle"></i> Add New <span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#"><i class="fa fa-plus-square-o"></i> Customer</a></li>
+                                        <li><a href="#"><i class="fa fa-plus-square-o"></i> Employee</a></li>
+                                        <li><a href="#"><i class="fa fa-plus-square-o"></i> Estimate</a></li>
+                                        <li><a href="#"><i class="fa fa-plus-square-o"></i> Task</a></li>
+                                        <li><a href="#"><i class="fa fa-plus-square-o"></i> Team Member</a></li>
+                                        <li role="separator" class="divider"></li>
+                                        <li><a href="#">Create Order</a></li>
+                                        <li role="separator" class="divider"></li>
+                                        <li><a href="#">Generate Report</a></li>
+                                    </ul>
+                                </li>*@
+                            <!-- /.dropdown -->
+                            @*<li><a href="#" class=""><i class="fa fa-bell"></i><span class="badge badge-danger">6</span></a></li>
+                                <li><a href="#" class=""><i class="fa fa-comments"></i><span class="badge badge-warning">2</span></a></li>*@
+
+                            <li><a class=""><span class="">{{ fullName }}</span></a></li>
+                            <li><a href="#" class="color-danger text-center" ng-click="logOut()"><i class="fa fa-sign-out"></i> Logout</a></li>
+                            <!-- /.dropdown -->
+                            @*<li><a href="#" class="hidden-xs hidden-sm open-right-sidebar"><i class="fa fa-ellipsis-v"></i></a></li>*@
+                        </ul>
+                        <!-- /.nav navbar-nav navbar-right -->
+                    </div>
+                    <!-- /.navbar-collapse -->
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+        </nav>
+        <!-- ========== WRAPPER FOR BOTH SIDEBARS & MAIN CONTENT ========== -->
+        <div class="content-wrapper">
+            <div class="content-container">
+                <!-- ========== LEFT SIDEBAR ========== -->
+                <div class="left-sidebar fixed-sidebar bg-black-300 box-shadow tour-three" ng-if="type == 1">
+                    <div class="sidebar-content">
+                        <div class="user-info closed">
+                            <img src="http://placehold.it/90/c2c2c2?text=User" alt="John Doe" class="img-circle profile-img">
+                            <h6 class="title">John Doe</h6>
+                            <small class="info">PHP Developer</small>
+                        </div>
+                        <!-- /.user-info -->
+                        <div class="sidebar-nav">
+                            <ul class="side-nav color-gray">
+                                <li class="has-children open">
+                                    <a href="#"><i class="fa fa-map-signs"></i> <span>Masters</span> <i class="fa fa-angle-right arrow"></i></a>
+                                    <ul class="child-nav">
+                                        <li><a href="#roles"><i class="fa fa-newspaper-o "></i> <span>System Roles</span></a></li>
+                                        <li><a href="#users"><i class="fa fa-leaf "></i> <span>Users</span></a></li>
+                                        <li><a href="#masters"><i class="fa fa-leaf "></i> <span>Application Masters</span></a></li>
+                                        <li><a href="#costdefinition/list"><i class="fa fa-leaf "></i> <span>Cost Definitions</span></a></li>
+                                    </ul>
+                                </li>
+                                <li class="has-children open">
+                                    <a href="#"><i class="fa fa-shield"></i> <span>Complexes</span> <i class="fa fa-angle-right arrow"></i></a>
+                                    <ul class="child-nav">
+                                        <li><a href="#complex/new"><i class="fa fa-table"></i> <span>Register</span></a></li>
+                                        <li><a href="#complex/list"><i class="fa fa-table"></i> <span>Lists</span></a></li>
+                                        <li><a href="#complex/payments"><i class="fa fa-hand-peace-o"></i> <span>Payments</span></a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- /.sidebar-nav -->
+                    </div>
+                    <!-- /.sidebar-content -->
+                </div>
+                <!-- /.left-sidebar -->
+
+                <div ng-view class="main-page"></div>
+                <!-- /.main-page -->
+                @*<div class="right-sidebar bg-white fixed-sidebar">
+                        <div class="sidebar-content">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h4>Useful Sidebar <i class="fa fa-times close-icon"></i></h4>
+                                        <p>Code for help is added within the main page. Check for code below the example.</p>
+                                        <p>You can use this sidebar to help your end-users. You can enter any HTML in this sidebar.</p>
+                                        <p>This sidebar can be a 'fixed to top' or you can unpin it to scroll with main page.</p>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                    </div>
+                                    <!-- /.col-md-12 -->
+                                    <div class="text-center mt-20">
+                                        <button type="button" class="btn btn-success btn-labeled">Purchase Now<span class="btn-label btn-label-right"><i class="fa fa-check"></i></span></button>
+                                    </div>
+                                    <!-- /.text-center -->
+                                </div>
+                                <!-- /.row -->
+                            </div>
+                            <!-- /.container-fluid -->
+                        </div>
+                        <!-- /.sidebar-content -->
+                    </div>*@
+                <!-- /.right-sidebar -->
+
+            </div>
+            <!-- /.content-container -->
+        </div>
+        <!-- /.content-wrapper -->
+    </div>
+    <!-- /.main-wrapper -->
+    <!-- ========== COMMON JS FILES ========== -->
+    <script src="~/Client/theme/js/jquery/jquery-2.2.4.min.js"></script>
+    <script src="~/Client/theme/js/jquery-ui/jquery-ui.min.js"></script>
+    <script src="~/Client/theme/js/bootstrap/bootstrap.min.js"></script>
+    <script src="~/Client/theme/js/pace/pace.min.js"></script>
+    <script src="~/Client/theme/js/lobipanel/lobipanel.min.js"></script>
+    <script src="~/Client/theme/js/iscroll/iscroll.js"></script>
+    <!-- ========== PAGE JS FILES ========== -->
+    <script src="~/Client/theme/js/prism/prism.js"></script>
+    <script src="~/Client/theme/js/waypoint/waypoints.min.js"></script>
+    <script src="~/Client/theme/js/counterUp/jquery.counterup.min.js"></script>
+    <script src="~/Client/theme/js/amcharts/amcharts.js"></script>
+    <script src="~/Client/theme/js/amcharts/serial.js"></script>
+    <script src="~/Client/theme/js/amcharts/plugins/export/export.min.js"></script>
+    <link rel="stylesheet" href="~/Client/theme/js/amcharts/plugins/export/export.css" type="text/css" media="all" />
+    <script src="~/Client/theme/js/amcharts/themes/light.js"></script>
+    <script src="~/Client/theme/js/toastr/toastr.min.js"></script>
+    <script src="~/Client/theme/js/icheck/icheck.min.js"></script>
+    <script src="~/Client/theme/js/bootstrap-tour/bootstrap-tour.js"></script>
+    <script src="~/Client/theme/js/select2/select2.min.js"></script>
+    <script src="~/Client/theme/js/bootstrap-switch/bootstrap-switch.min.js"></script>
+    <!-- ========== THEME JS ========== -->
+    <script src="~/Client/theme/js/main.js"></script>
+    <script src="~/Client/theme/js/production-chart.js"></script>
+    <script src="~/Client/theme/js/traffic-chart.js"></script>
+    <script src="~/Client/theme/js/task-list.js"></script>
+
+    <script type="text/javascript" src="~/Client/theme/js/date-picker/bootstrap-datepicker.js"></script>
+    <script type="text/javascript" src="~/Client/theme/js/date-picker/jquery.timepicker.js"></script>
+    <script type="text/javascript" src="~/Client/theme/js/date-picker/datepair.js"></script>
+    <script type="text/javascript" src="~/Client/theme/js/date-picker/moment.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+    <!-- ========== PAGE JS FILES ========== -->
+    @*<script src="~/Client/theme/js/icheck/icheck.min.js"></script>*@
+
+    <script>
+        $(function () {
+
+            // Welcome notification
+            //toastr["success"]("One stop solution to your website admin panel!", "Welcome to Options!");
+
+            //$('input.flat-blue-style').iCheck({
+            //    checkboxClass: 'icheckbox_flat-blue'
+            //});
+
+        });
+    </script>
+    <!-- ========== ADD custom.js FILE BELOW WITH YOUR CHANGES ========== -->
+    <script src="~/Client/assets/js/angular.min.js"></script>
+    <!-- router -->
+    <script src="~/Client/assets/js/angular-ui-router.js"></script>
+
+
+
+
+    <script src="~/Client/assets/js/angular-local-storage.min.js"></script>
+    <script src="~/Client/assets/js/angular-route.min.js"></script>
+    <script src="~/Client/assets/js/angular-toastr.tpls.js"></script>
+
+    <script src="~/Client/app/app.js"></script>
+    <script src="~/Client/app/authInterceptorService.js"></script>
+    <script src="~/Client/app/authService.js"></script>
+    <script src="~/Client/app/common.js"></script>
+    <script src="~/Client/app/constant.js"></script>
+    <script src="~/Client/app/router.js"></script>
+    <script src="~/Client/assets/js/multiselect/bt-multiselect.js"></script>
+    <script src="~/Client/app/sumofvalue.js"></script>
+    <script src="~/Client/app/sortfunction.js"></script>
+    <script src="~/Client/app/common/xlsx.full.min.js"></script>
+    <script src="~/Client/app/common/FileSaver.js"></script>
+    <script src="~/Client/app/common/table2xlsx.js"></script>
+    <script src="~/Client/app/common/data2xlsx.js"></script>
+
+    <script src="~/Client/app/home/homeController.js"></script>
+    <script src="~/Client/app/dashboard/dashboardController.js"></script>
+    <script src="~/Client/app/login/login.js"></script>
+
+    <script src="~/Client/app/user/newUserController.js"></script>
+    <script src="~/Client/app/user/userDetailsController.js"></script>
+    <script src="~/Client/app/user/userListController.js"></script>
+
+    <script src="~/Client/app/usergroup/userGroupListController.js"></script>
+    <script src="~/Client/app/mastervalue/mastervalueListController.js"></script>
+
+    <script src="~/Client/app/society/newSocietyController.js"></script>
+    <script src="~/Client/app/society/societyListController.js"></script>
+    <script src="~/Client/app/society/societyDetailsController.js"></script>
+    <script src="~/Client/app/society/selectsocietyController.js"></script>
+    <script src="~/Client/app/society/societymembersController.js"></script>
+    <script src="~/Client/app/society/societyadminsController.js"></script>
+    <script src="~/Client/app/society/societyUserNewController.js"></script>
+    <script src="~/Client/app/society/societytenantsController.js"></script>
+
+    <script src="~/Client/app/facility/facilityDetailsController.js"></script>
+    <script src="~/Client/app/facility/directive/newFacilityBox.js"></script>
+
+    <script src="~/Client/app/floor/directive/newFloorBox.js"></script>
+    <script src="~/Client/app/floor/floorDetailsController.js"></script>
+
+    <script src="~/Client/app/flat/directive/newFlatBox.js"></script>
+    <script src="~/Client/app/flat/directive/newCommercialSpaceBox.js"></script>
+    <script src="~/Client/app/flat/flatDetailsController.js"></script>
+
+    <script src="~/Client/app/flatowner/directive/newFlatOwnerBox.js"></script>
+    <script src="~/Client/app/flatowner/directive/flatownerDetailsBox.js"></script>
+    <script src="~/Client/app/flatowner/flatownerDetailsController.js"></script>
+
+    <script src="~/Client/app/maintenancecost/directive/maintenanceCostBox.js"></script>
+    <script src="~/Client/app/maintenancecost/maintenanceCostListController.js"></script>
+
+    <script src="~/Client/app/securitystaff/directive/newSecuritystaffBox.js"></script>
+    <script src="~/Client/app/securitystaff/securitystaffListController.js"></script>
+
+    <script src="~/Client/app/societystaff/directive/newSocietystaffBox.js"></script>
+    <script src="~/Client/app/societystaff/societystaffListController.js"></script>
+
+    <script src="~/Client/app/complex/complexListController.js"></script>
+    <script src="~/Client/app/complex/complexDetailsController.js"></script>
+    <script src="~/Client/app/complex/newComplexController.js"></script>
+    <script src="~/Client/app/complex/selectcomplexController.js"></script>
+
+    <script src="~/Client/app/flatparking/directive/newFlatParkingBox.js"></script>
+
+    <script src="~/Client/app/receipt/receiptListController.js"></script>
+    <script src="~/Client/app/vehicle/directive/vehicleBox.js"></script>
+    <script src="~/Client/app/user/directive/userBox.js"></script>
+    <script src="~/Client/app/usergroup/directive/userGroupBox.js"></script>
+
+    <script src="~/Client/app/costdefinition/costDefinitionList.js"></script>
+    <script src="~/Client/app/costdefinition/newCostDefinition.js"></script>
+
+    <script src="~/Client/app/flat/flatListController.js"></script>
+    <script src="~/Client/app/billingtransaction/newBillingTransactionController.js"></script>
+    <script src="~/Client/app/billingtransaction/billingHistoryController.js"></script>
+    <script src="~/Client/app/billingtransaction/pendingBillController.js"></script>
+
+    <script src="~/Client/app/asset/directive/newAssetBox.js"></script>
+    <script src="~/Client/app/bulkuploads/uploadFlatsController.js"></script>
+    <script src="~/Client/app/bulkuploads/uploadFamiliesController.js"></script>
+    <script src="~/Client/app/bulkuploads/uploadFlatOwnersController.js"></script>
+    <script src="~/Client/app/bulkuploads/uploadFlatTenantsController.js"></script>
+    <script src="~/Client/app/bulkuploads/uploadVehiclesController.js"></script>
+    <script src="~/Client/app/bulkuploads/uploadOpeningBillsController.js"></script>
+
+    <script src="~/Client/app/comment/commentBox.js"></script>
+    <script src="~/Client/app/approvals/approveMaintenancecostsController.js"></script>
+    <script src="~/Client/app/approvals/approveFlatsController.js"></script>
+    <script src="~/Client/app/approvals/approveFlatownersController.js"></script>
+    <script src="~/Client/app/approvals/approveFlatownerFamiliesController.js"></script>
+    <script src="~/Client/app/approvals/approveVehiclesController.js"></script>
+    <script src="~/Client/app/approvals/approveTenantsController.js"></script>
+
+</body>
+</html>

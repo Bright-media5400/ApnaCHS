@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{11210497-11B3-48AC-9C14-FE6D42E0DFD8}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ApnaCHS.Entities</RootNamespace>
+    <AssemblyName>ApnaCHS.Entities</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <NuGetPackageImportStamp>50199633</NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\ApnaCHS.Web\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\ApnaCHS.Web\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\ApnaCHS.Web\packages\Microsoft.AspNet.Identity.Core.2.2.2\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\ApnaCHS.Web\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.2\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AllIndiaPincode.cs" />
+    <Compile Include="ApplicationRole.cs" />
+    <Compile Include="ApplicationTypes.cs" />
+    <Compile Include="ApplicationUser.cs" />
+    <Compile Include="ApplicationUserClaim.cs" />
+    <Compile Include="ApplicationUserLogin.cs" />
+    <Compile Include="ApplicationUserRole.cs" />
+    <Compile Include="Attendance.cs" />
+    <Compile Include="Bill.cs" />
+    <Compile Include="BillingLine.cs" />
+    <Compile Include="BillingTransaction.cs" />
+    <Compile Include="CommentFlat.cs" />
+    <Compile Include="CommentFlatOwner.cs" />
+    <Compile Include="CommentFlatOwnerFamily.cs" />
+    <Compile Include="CommentMC.cs" />
+    <Compile Include="CommentVehicle.cs" />
+    <Compile Include="Complex.cs" />
+    <Compile Include="DataApproval.cs" />
+    <Compile Include="Facility.cs" />
+    <Compile Include="EntityBase.cs" />
+    <Compile Include="Flat.cs" />
+    <Compile Include="FlatOwner.cs" />
+    <Compile Include="FlatOwnerFamily.cs" />
+    <Compile Include="FlatParking.cs" />
+    <Compile Include="Floor.cs" />
+    <Compile Include="Instance.cs" />
+    <Compile Include="MaintenanceCost.cs" />
+    <Compile Include="MaintenanceCostDefinition.cs" />
+    <Compile Include="MapFlatToFlatOwner.cs" />
+    <Compile Include="MapSocietiesToFacilities.cs" />
+    <Compile Include="MapUserToComplex.cs" />
+    <Compile Include="MapUserToSociety.cs" />
+    <Compile Include="MasterValue.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReportFamilyResult.cs" />
+    <Compile Include="SecurityStaff.cs" />
+    <Compile Include="Society.cs" />
+    <Compile Include="SocietyAsset.cs" />
+    <Compile Include="SocietyDocument.cs" />
+    <Compile Include="SocietyStaff.cs" />
+    <Compile Include="UserRole.cs" />
+    <Compile Include="Vehicle.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

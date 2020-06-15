@@ -1,0 +1,77 @@
+<form class="form-horizontal" name="userForm" ng-submit="submit()">
+
+    <div class="form-group">
+        <label for="facilityType" class="col-xs-6 col-md-3 control-label">Type<span class="color-red">*</span></label>
+        <div class="col-xs-12 col-md-9">
+            <select class="form-control" id="facilityType" ng-model="formData.facilityType"
+                    ng-options="ug.text for ug in facilityTypes" ng-change="onFacilityType()" required>
+                <option value="">Select a Type</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="name" class="col-xs-3 col-md-3 control-label">Name<span class="color-red">*</span></label>
+        <div class="col-xs-12 col-md-9">
+            <input type="text" class="form-control" id="name" placeholder="Name" ng-model="formData.name" required>
+        </div>
+    </div>
+
+    <div class="form-group" ng-if="isWing">
+        <label for="noOfWings" class="col-xs-3 col-md-3 control-label">No of wings<span class="color-red">*</span></label>
+        <div class="col-xs-12 col-md-9">
+            <input type="number" min="1" class="form-control noscroll" id="noOfWings" placeholder="No of wings" ng-model="formData.noOfWings" ng-change="onNoOfWings()" required>
+        </div>
+    </div>
+
+
+
+    <div ng-repeat="n in wings">
+
+        <div class="form-group" ng-if="isWing || isNoOfFloors || isNoOfFlats || isNoOfLifts">
+            <div class="col-xs-12 col-md-3" ng-if="isWing">
+                <input type="text" class="form-control" id="wing" placeholder="Wing" ng-model="n.wing" required>
+            </div>
+
+            <div class="col-xs-12 col-md-3" ng-if="isNoOfFloors">
+                <input type="number" min="0" class="form-control noscroll" id="noOfFloors" placeholder="No. Of Floors" ng-model="n.noOfFloors" required>
+            </div>
+
+            <label for="noOfFlats" class="col-xs-3 control-label" ng-if="isNoOfFlats && formData.facilityType.id == 2">No.Of {{ formData.flatLabel }}<span class="color-red">*</span></label>
+            <div class="col-xs-12 col-md-3" ng-if="isNoOfFlats">
+                <input type="number" min="0" class="form-control noscroll" id="noOfFlats" placeholder="No. Of {{ formData.flatLabel }}" ng-model="n.noOfFlats" required>
+            </div>
+
+            <div class="col-xs-12 col-md-3" ng-if="isNoOfLifts">
+                <input type="number" min="0" class="form-control noscroll" id="noOfLifts" placeholder="No. Of Lifts" ng-model="n.noOfLifts" required>
+            </div>
+        </div>
+
+        <div class="form-group" ng-if="isNoOfParkinglots">
+
+            <label for="noOfParkinglots" class="col-xs-12 col-md-6 control-label" ng-if="isNoOfParkinglots && !isWing">No Of Two Wheeler Parking Lots<span class="color-red">*</span></label>
+            <div class="col-xs-12 col-md-6" ng-if="isNoOfParkinglots">
+                <input type="number" min="0" class="form-control noscroll" id="noOfParkinglots" placeholder="No Of Two Wheeler Parking Lots" ng-model="n.noOf2Parkinglots" required>
+            </div>
+
+            <label for="noOfParkinglots" class="col-xs-12 col-md-6 control-label" ng-if="isNoOfParkinglots && !isWing">No Of Four Wheeler Parking Lots<span class="color-red">*</span></label>
+            <div class="col-xs-12 col-md-6" ng-if="isNoOfParkinglots">
+                <input type="number" min="0" class="form-control noscroll" id="noOfParkinglots" placeholder="No Of Four Wheeler Parking Lots" ng-model="n.noOf4Parkinglots" required>
+            </div>
+
+            <label for="noOfParkinglots" class="col-xs-12 col-md-6 control-label" ng-if="isNoOfParkinglots && !isWing">No Of Common Parking Lots<span class="color-red">*</span></label>
+            <div class="col-xs-12 col-md-6" ng-if="isNoOfParkinglots">
+                <input type="number" min="0" class="form-control noscroll" id="noOfParkinglots" placeholder="No Of Common Parking Lots" ng-model="n.noOf24Parkinglots" required>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button id="cancelNewFacilityBox" ng-click="clearNewFacilityBox()" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn btn-primary" ng-disabled="userForm.$invalid">Create</button>
+        <!--<button type="button" ng-click="addNewFacility()" class="btn btn-primary">Yes</button>-->
+    </div>
+
+
+</form>

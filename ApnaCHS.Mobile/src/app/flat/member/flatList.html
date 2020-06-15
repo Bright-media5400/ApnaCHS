@@ -1,0 +1,49 @@
+<!-- Toggle -->
+<div class="h-60">
+    <div class="">
+        <ul class="">
+            <li class="top-header">Select Flat</li>
+        </ul>
+    </div>
+
+    <div class="tab-content">
+        <div id="payment" class="tab-pane fade in active">
+            <div class="card1" ng-repeat="flat in recordList">
+                <a href="#!flat/details/{{flat.flatId}}">
+                    <div class="row" style="margin-bottom: 0px;">
+                        <div class="col s3">
+                            <div class="card-field-profile">
+                                <img src="assets/images/profile.png" height="72">
+                            </div>
+                        </div>
+                        <div class="col s9">
+                            <div class="amount-weight">
+                                {{ flat.currentOwner }}
+                            </div>
+                            <div class="card-field">Building : {{ flat.building}}</div>
+                            <div class="card-field">Floor : {{ flat.floor }}</div>
+                            <div class="card-field">Flat No : {{ flat.flat }}</div>
+                            <div class="card-field">Flat Type : {{ flat.typeName }}</div>
+                        </div>
+                    </div>
+                </a>
+                <!-- <div class="row">
+            <a href="#!flat/details/{{flat.flatId}}" ng-click="select(flat)">
+                <div class="row">
+                    <div class="col s6">Building : {{ flat.building}}</div>
+                    <div class="col s6">Floor: {{ flat.floor }}</div>
+                </div>
+                <div class="row">
+                    <div class="amount-weight">{{ flat.currentOwner }}</div>
+                    <p>Flat No : {{ flat.flat }}</p>
+                    <p>Flat Type : {{ flat.typeName }}</p>
+                </div>
+            </a>
+        </div> -->
+            </div>
+        </div>
+    </div>
+
+    <div class="tab-content"></div>
+</div>
+<!-- Toggle End -->

@@ -1,0 +1,82 @@
+<div class="col-md-12">
+    <div class="panel">
+        <div class="panel-heading">
+            <div class="panel-title">
+                <h3>Pending Bill Details</h3>
+                <br />
+                <form>
+                    <div class="form-group row">
+                        <div class="col-sm-3">
+
+                            <button type="button" class="btn btn-default" ng-click="onBackClick()">Back</button>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div id="">
+
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered">
+                    <thead class="bg-primary">
+                        <tr>
+                            <th>Bill No</th>
+                            <th>Name</th>
+                            <th>Generation Date</th>
+                            <th>Bill Amount</th>
+                            <th>Pending Amount</th>
+                            <th>For Month</th>
+                            <!--<th>Action</th>-->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in recordList">
+                            <td><span>{{ item.receiptNo }}</span></td>
+                            <td><span>{{ item.name }}</span><br /><span>Flat - {{ item.flat.name }}</span></td>
+                            <td><span>{{ item.date | date : 'dd/MM/yyyy' }}</span></td>
+                            <td><span>{{ item.amount }}</span></td>
+                            <td><span>{{ item.pending }}</span></td>
+                            <td><span>{{ showMonth(item.month) }} {{ item.year }}</span></td>
+                            <!--<td>
+                                <button type="button" title="Print" class="btn btn-success icon-only" ng-click="downloadFile(item)"
+                                        data-toggle="modal" data-target="#editFlatOwnerBox">
+                                    <i ng-if="!item.isLoading" class="fa fa-print"></i>
+                                    <i ng-if="item.isLoading" class="fa fa-spinner fa-pulse fa-fw"></i>
+                                </button>
+                                <button type="button" ng-if="!udf.deleted" title="Delete" class="btn btn-danger icon-only" ng-click="onDelete(item,$index)"
+                                        data-toggle="modal" data-target="#confirmDelete">
+                                    <i class="fa fa-trash-o"></i>
+                                </button>
+                                <button type="button" ng-if="udf.deleted" title="Restore" class="btn btn-warning icon-only" ng-click="onRestore(item,$index)"
+                                        data-toggle="modal" data-target="#confirmRestore">
+                                    <i class="fa fa-check-square-o"></i>
+                                </button>
+                            </td>-->
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+    <!-- /.panel -->
+</div>
+<!-- /.col-md-6 -->
+<div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Confirm Delete<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></h4>
+            </div>
+            <div class="modal-body">
+                Do you want to delete society - '<strong>{{selectedItem.name}}</strong>'?
+            </div>
+            <div class="modal-footer">
+                <button id="cancelConfirmDelete" type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                <button type="button" ng-click="delete()" class="btn btn-primary">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>

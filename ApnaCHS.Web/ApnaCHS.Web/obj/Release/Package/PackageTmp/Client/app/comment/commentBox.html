@@ -1,0 +1,89 @@
+﻿
+<section class="section pt-n pb-n">
+    <div class="container-fluid">
+        <!--<div class="row">-->
+        <div class="col-md-12">
+            <div class="panel border-primary no-border border-3-top" data-panel-control>
+                <div class="panel-heading pb-20">
+                    <div class="panel-title" ng-show="!isAddNewComment">
+                        <div class="col-sm-6">
+                            <h3>Comments</h3>
+                        </div>
+                        <div class="col-sm-6 text-right">
+                            <button ng-click="addNewCommentClicked()" class="btn btn-success icon-only" title="Add comment">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="panel-body p-20">
+
+                    <div class="form-group row" ng-show="isAddNewComment">
+                        <form ng-submit="addNewComment()">
+                            <div class="col-sm-9">
+                                <textarea name="comment" required ng-model="commentFormData.text"
+                                          class="form-control" placeholder="New comment"></textarea>
+                            </div>
+                            <div class="col-sm-1">
+                                <button type="submit" class="btn btn-success icon-only" title="Add comment">
+                                    <i class="fa fa-check"></i>
+                                </button>
+                            </div>
+                            <div class="col-sm-1">
+                                <button type="button" ng-click="addNewCommentCancelClicked()" class="btn btn-danger icon-only" title="Cancel">
+                                    <i class="fa fa-remove"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="box-divider m-a-0"></div>
+
+                    <table class="table table-clean">
+                        <tbody>
+                            <tr ng-repeat-start="comment in formData.comments" ng-if="!comment.isEdit">
+                                <td><img src="Client/theme/images/letter/{{getLetter(comment.commentBy)}}.png" alt="" class="border-radius-50 img-size-50"></td>
+                                <td class="line-height-30">
+                                    <small>
+                                        <b>{{comment.commentBy}}</b>
+                                        <br>{{ comment.text }}
+                                        <br><a href class="color-warning" ng-click="editComment(comment)"><i class="fa fa-pencil"></i></a>&nbsp;<span>{{comment.createdDate | date:'fullDate' }}</span>
+                                    </small>
+                                </td>
+                            </tr>
+                            <tr ng-repeat-end ng-if="comment.isEdit">
+                                <td colspan="2">
+                                    <div class="form-group row">
+                                        <form ng-submit="updateComment($index)">
+                                            <div class="col-sm-10">
+                                                <textarea name="comment" required ng-model="comment.text"
+                                                          class="form-control" placeholder="Update comment"></textarea>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <button type="submit" class="btn btn-success icon-only" title="Update comment">
+                                                    <i class="fa fa-check"></i>
+                                                </button>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <button type="button" ng-click="cancelEditClicked(comment)" class="btn btn-danger icon-only" title="Cancel">
+                                                    <i class="fa fa-remove"></i>
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+        <!-- /.col-md-12 -->
+        <!--</div>-->
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</section>
+<!-- /.section -->

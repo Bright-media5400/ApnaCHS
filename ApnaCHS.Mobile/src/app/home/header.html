@@ -1,0 +1,75 @@
+
+
+<div class="wrapper">
+    <div class="navbar" ng-class="{'ns':!isHome}">
+        <div class="container p0">
+            <div class="row v-center">
+                <div class="col s1">
+                    <div class="content-left">
+                        <a href ng-click="togglesidenav()" data-activates="slide-out" class="sidebar"><i class="fa fa-bars"></i></a>
+                    </div>
+                </div>
+                <div class="col s7">
+                    <div class="content-left">
+                        <img src="assets/images/logo-w.png" style="width: 150px;">
+                    </div>
+                </div>
+                <div class="col s4">
+                    <div class="content-right right-menu">
+                        <a href=""><i class="fa fa-search"></i></a>
+                        <a href ng-click="logOut()"><i class="fa fa-bell-o"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row actionBtnsNav" ng-if="isHome">
+                <div class="col s3">
+                    <a href class="actionBtn"><div class="icon-holder"><img src="assets/images/pay.svg"></div><span>Pay</span></a>
+                </div>
+                <div class="col s3">
+                    <a href class="actionBtn"><div class="icon-holder"><img src="assets/images/passbook.svg"></div><span>Passbook</span></a>
+                </div>
+                <div class="col s3">
+                    <a href class="actionBtn"><div class="icon-holder"><img src="assets/images/dues.svg"></div><span>Dues</span></a>
+                </div>
+                <div class="col s3">
+                    <a href class="actionBtn"><div class="icon-holder"><img src="assets/images/feed.svg"></div><span>Feed</span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar-panel" ng-class="{'customfade': isopen}" ng-click="closesidenav()">
+        <ul id="slide-out" class="collapsible side-nav" ng-class="{'customslide': isopen}">
+            <li>
+                <div class="user-view">
+                    <div class="background">
+                        <img src="assets/images/profile.png" alt="">
+                    </div>
+                    <img class="circle responsive-img" src="assets/images/profile.png" alt="">
+                    <span class="name">Person Name</span>
+                    <span class="name">Person Id</span>
+                    <!-- <input type="text" name="" class="user-pic"> -->
+                </div>
+            </li>	
+            <div class="profile">
+            <li><a href ng-click="navigateHome()"><i class="fa fa-home"></i>Home</a></li>								
+            <li><a href><i class="fa fa-credit-card-alt"></i>Payments</a></li>
+            <li><a href><i class="fa fa-wrench"></i>Maintenance</a></li>
+            <li><a href><i class="fa fa-users"></i>Guest</a></li>
+            <li><a href><i class="fa fa-bullhorn"></i>Emergency</a></li>
+            <li><a href><i class="fa fa-cog"></i>Settings</a></li>
+            <li><a href><i class="fa fa-question-circle"></i>Help and Feedback</a></li>
+            </div>
+            <div class="sidebar-footer">
+                <li><a ng-click="logOut()"><i class="fa fa-power-off"></i>Sign Out</a></li>	
+            </div>
+            
+        </ul>
+    </div>
+
+
+    <div id="main" class="content pt15 pb15" ng-view  ng-class="{'cs':!isHome}"></div>
+</div>
+
+<div class="drag-target" data-sidenav="slide-out" style="touch-action: pan-y; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); left: 0px;"></div>

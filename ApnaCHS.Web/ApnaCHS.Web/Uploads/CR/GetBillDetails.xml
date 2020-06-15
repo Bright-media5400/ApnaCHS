@@ -1,0 +1,110 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="Bill">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Id" type="xs:long" minOccurs="0" />
+              <xs:element name="Name" type="xs:string" minOccurs="0" />
+              <xs:element name="ReceiptNo" type="xs:int" minOccurs="0" />
+              <xs:element name="Date" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="Amount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Month" type="xs:int" minOccurs="0" />
+              <xs:element name="Year" type="xs:int" minOccurs="0" />
+              <xs:element name="Pending" type="xs:decimal" minOccurs="0" />
+              <xs:element name="FlatId" type="xs:long" minOccurs="0" />
+              <xs:element name="SocietyId" type="xs:long" minOccurs="0" />
+              <xs:element name="CreatedDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="ModifiedDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CreatedBy" type="xs:string" minOccurs="0" />
+              <xs:element name="ModifiedBy" type="xs:string" minOccurs="0" />
+              <xs:element name="Deleted" type="xs:boolean" minOccurs="0" />
+              <xs:element name="IsApproved" type="xs:boolean" minOccurs="0" />
+              <xs:element name="ApprovedDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="ApprovedBy" type="xs:string" minOccurs="0" />
+              <xs:element name="UnApprovedData" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="BillingLines">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Id" type="xs:long" minOccurs="0" />
+              <xs:element name="BillId" type="xs:long" minOccurs="0" />
+              <xs:element name="Definition" type="xs:string" minOccurs="0" />
+              <xs:element name="Amount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="BaseAmount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="OnArea" type="xs:int" minOccurs="0" />
+              <xs:element name="CreatedDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="ModifiedDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CreatedBy" type="xs:string" minOccurs="0" />
+              <xs:element name="ModifiedBy" type="xs:string" minOccurs="0" />
+              <xs:element name="Deleted" type="xs:boolean" minOccurs="0" />
+              <xs:element name="IsApproved" type="xs:boolean" minOccurs="0" />
+              <xs:element name="ApprovedDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="ApprovedBy" type="xs:string" minOccurs="0" />
+              <xs:element name="UnApprovedData" type="xs:string" minOccurs="0" />
+              <xs:element name="OtherAmount" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="FlatOwner">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Id" type="xs:long" minOccurs="0" />
+              <xs:element name="Name" type="xs:string" minOccurs="0" />
+              <xs:element name="MobileNo" type="xs:string" minOccurs="0" />
+              <xs:element name="EmailId" type="xs:string" minOccurs="0" />
+              <xs:element name="DateOfBirth" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="AadhaarCardNo" type="xs:string" minOccurs="0" />
+              <xs:element name="FlatName" type="xs:string" minOccurs="0" />
+              <xs:element name="FlatTotalArea" type="xs:int" minOccurs="0" />
+              <xs:element name="FlatCarpetArea" type="xs:int" minOccurs="0" />
+              <xs:element name="FlatBuildUpArea" type="xs:int" minOccurs="0" />
+              <xs:element name="FlatHaveParking" type="xs:boolean" minOccurs="0" />
+              <xs:element name="FlatIsRented" type="xs:boolean" minOccurs="0" />
+              <xs:element name="FlatIsCommercialSpace" type="xs:boolean" minOccurs="0" />
+              <xs:element name="FloorName" type="xs:string" minOccurs="0" />
+              <xs:element name="BuildingName" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Society">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Id" type="xs:long" minOccurs="0" />
+              <xs:element name="Name" type="xs:string" minOccurs="0" />
+              <xs:element name="RegistrationNo" type="xs:string" minOccurs="0" />
+              <xs:element name="DateOfIncorporation" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DateOfRegistration" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="Email" type="xs:string" minOccurs="0" />
+              <xs:element name="PhoneNo" type="xs:string" minOccurs="0" />
+              <xs:element name="ContactPerson" type="xs:string" minOccurs="0" />
+              <xs:element name="BillingCycle" type="xs:int" minOccurs="0" />
+              <xs:element name="DueDays" type="xs:int" minOccurs="0" />
+              <xs:element name="Second2Wheeler" type="xs:long" minOccurs="0" />
+              <xs:element name="Second4Wheeler" type="xs:long" minOccurs="0" />
+              <xs:element name="InterestPercent" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ComplexId" type="xs:long" minOccurs="0" />
+              <xs:element name="CreatedDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="ModifiedDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CreatedBy" type="xs:string" minOccurs="0" />
+              <xs:element name="ModifiedBy" type="xs:string" minOccurs="0" />
+              <xs:element name="Deleted" type="xs:boolean" minOccurs="0" />
+              <xs:element name="IsApproved" type="xs:boolean" minOccurs="0" />
+              <xs:element name="ApprovedDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="ApprovedBy" type="xs:string" minOccurs="0" />
+              <xs:element name="UnApprovedData" type="xs:string" minOccurs="0" />
+              <xs:element name="Address" type="xs:string" minOccurs="0" />
+              <xs:element name="Area" type="xs:string" minOccurs="0" />
+              <xs:element name="City" type="xs:string" minOccurs="0" />
+              <xs:element name="State" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

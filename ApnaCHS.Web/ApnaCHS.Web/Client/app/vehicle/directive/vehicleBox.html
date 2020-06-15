@@ -1,0 +1,53 @@
+<div class="modal-dialog" role="document" style="width: 1020px;">
+    <form class="form-horizontal" name="userForm" ng-submit="submit()">
+        <div class="modal-content" style="width: 1020px;">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Enter Vehicle Details<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="vehicleTypes" class="col-xs-4 control-label">Type<span class="color-red">*</span></label>
+                    <div class="col-xs-12 col-md-4">
+                        <select class="form-control" id="vehicleTypes" ng-model="formData.type" ng-options="ug.text for ug in vehicleTypes" required>
+                            <option value="">Select a Type</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="number" class="col-xs-4 control-label">Number<span class="color-red">*</span></label>
+                    <div class="col-xs-12 col-md-4">
+                        <!--<input type="text" class="form-control" id="number" pattern="^[a-zA-z]{2}\s[0-9]{2}\s[a-zA-z]{2}\s[0-9]{4}$" placeholder="Number" ng-model="formData.number" required>-->
+                        <input type="text" class="form-control" id="number" placeholder="Number" ng-model="formData.number" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="name" class="col-xs-4 control-label">Name</label>
+                    <div class="col-xs-12 col-md-4">
+                        <input type="text" class="form-control" id="name" placeholder="Name" ng-model="formData.name">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="make" class="col-xs-4 control-label">Make</label>
+                    <div class="col-xs-12 col-md-4">
+                        <input type="text" class="form-control" id="make" placeholder="Make" ng-model="formData.make">
+                    </div>
+                </div>
+
+                <div class="clearfix"></div>
+            </div>
+            <div class="modal-footer">
+                <button id="cancelVehicleBox" type="button" ng-click="cancelVehicleBox()" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-primary" ng-disabled="userForm.$invalid">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+
+
+

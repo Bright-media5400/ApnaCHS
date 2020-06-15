@@ -1,0 +1,163 @@
+<!-- Payment Toggle -->
+<div class="h-60">
+    <div class="tab-content">
+        <div id="payment" class="tab-pane fade in active">
+                <div class="card-tabs">
+                    <ul class="tabs tabs-fixed-width">
+                        <li class="tab"><a class="active" href="#details">Details</a></li>
+                        <li class="tab"><a href="#currentowner">Current Owner</a></li>
+                        <li class="tab"><a href="#ownerhistory">Owner History</a></li>
+                        <!--<li class="tab"><a href="#currenttenant">Current Tenant</a></li>-->
+                        <li class="tab"><a href="#tenanthistory">Tenant History</a></li>
+                    </ul>
+                </div>
+                <div id="details">
+                    <div class="card1">
+                        <div class="row" style="margin-bottom: 0px;">
+                            <div class="col s4">
+                                <div class="card-field-img" style="text-align:center">
+                                    <img src="assets/images/buildings.png" height="75">
+                                </div>
+                                <h5 style="text-align:center">{{ editFormData.name }} </h5>
+                            </div>
+                            <div class="col s8">
+                                <p class="card-field">
+                                    Flat Type : {{ editFormData.flatType.text || 'Not set' }}<br>
+                                    Total Area : {{ editFormData.totalArea }} sqft<br>
+                                    Build-Up Area : {{ editFormData.buildUpArea }} sqft <br>
+                                    Carpet Area : {{ editFormData.carpetArea }} sqft
+                                </p>
+                            </div>
+                            <div class="col s12">
+                                <span class="card-field">Have Separate Parking : {{ editFormData.haveParking ? 'Yes' : 'No' }} </span><br>
+                                <span class="card-field">Assigned Parkings :</span>
+                                <button style="margin: 5px; background-color: #cdcece94;" class="card-field" ng-repeat="ve in flatParkingsList"> 
+                                    <i ng-if="ve.type == 1" class="fa fa-motorcycle"></i><i ng-if="ve.type == 2" class="fa fa-car"></i><i ng-if="ve.type == 3" class="fa fa-product-hunt"></i><br >
+                                    <small>{{ ve.name }} </small>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="currentowner">
+                    <div class="card1">
+                        <div class="row" style="margin-bottom: 0px;">
+                            <div class="col s4">
+                                <div class="card-field-img" style="text-align:center">
+                                    <img src="assets/images/profile.png" height="75">
+                                </div>
+                                <h5 style="text-align:center">{{ currentFlatOwner.flatOwner.name }} </h5>
+                            </div>
+                            <div class="col s8">
+                                <p class="card-field">
+                                    Mobile No : {{ currentFlatOwner.flatOwner.mobileNo }}<br>
+                                    Email Id : {{ currentFlatOwner.flatOwner.emailId }}<br>
+                                    Gender : {{ currentFlatOwner.flatOwner.gender.text }}<br>
+                                    DOB : {{ currentFlatOwner.flatOwner.dateOfBirth | date : 'dd/MM/yyyy' }}<br>
+                                    Member Since : {{ currentFlatOwner.memberSinceDate | date : 'dd/MM/yyyy' }}<br>
+                                    Approved :
+                                    <span ng-if="currentFlatOwner.flatOwner.isApproved">Yes</span>
+                                </p>
+                            </div>
+                            <div class="col s12">
+                                <span class="card-field">Aadhaar Card No : {{ currentFlatOwner.flatOwner.aadhaarCardNo }}</span><br>
+                                <span class="card-field">Family Members :</span>
+                                <span class="card-field" ng-repeat="family in recordList">
+                                {{ family.name }} ({{family.relationship.text}})
+                                </span>
+                            </div>
+                            <div class="row">
+                                <div class=" col s3">
+                                <span class="card-field">Vehicles </span></div>
+                                <div class="col s9">
+                                <button style="margin: 5px; background-color: #cdcece94;" class="card-field " ng-repeat="v in vehicleList">
+                                    <i ng-if="v.type == 1" class="fa fa-motorcycle"></i><i ng-if="v.type == 2" class="fa fa-car"></i><i ng-if="v.type == 3" class="fa fa-product-hunt"></i><br>
+                                    <small> {{ v.number }}  </small>
+                                </button></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="ownerhistory">
+                    <div class="card1" ng-repeat="items in flatOwnerHistory | filter : { flatOwnerType : 1 }">
+                        <div class="row" style="margin-bottom: 0px;">
+                            <div class="col s4">
+                                <div class="card-field-img" style="text-align:center">
+                                    <img src="assets/images/profile.png" height="75">
+                                </div>
+                                <h5 style="text-align:center">{{ items.flatOwner.name }} </h5>
+                            </div>
+                            <div class="col s8">
+                                <p class="card-field">
+                                    Mobile No : {{ items.flatOwner.mobileNo }}<br>
+                                    Email Id : {{ items.flatOwner.emailId }}<br>
+                                    Gender : {{ items.flatOwner.gender.text }}<br>
+                                    DOB : {{ items.flatOwner.dateOfBirth | date : 'dd/MM/yyyy' }}<br>
+                                    Member Since : {{ items.memberSinceDate | date : 'dd/MM/yyyy' }}<br>
+                                    Member Till : {{ items.memberTillDate | date : 'dd/MM/yyyy' }}<br>
+                                    Aadhaar No : {{ items.flatOwner.aadhaarCardNo }} 
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               <!--<div id="currenttenant">
+                    <div class="card1">
+                        <div class="row" style="margin-bottom: 0px;">
+                            <div class="col s4">
+                                <div class="card-field-img" style="text-align:center">
+                                    <img src="images/profile.png" height="75">
+                                </div>
+                                <h5 style="text-align:center">{{ currentTenant.name }} </h5>
+                            </div>
+                            <div class="col s8">
+                                <p class="card-field">
+                                    Mobile No : {{ currentTenant.mobileNo }}<br>
+                                    Email Id : {{ currentTenant.emailId }}<br>
+                                    Gender : {{ currentTenant.gender.text }}<br>
+                                    DOB : {{ currentTenant.dateOfBirth | date : 'dd/MM/yyyy' }}<br>
+                                    Member Since Date : {{ currentTenant.memberSinceDate | date : 'dd/MM/yyyy' }}<br>
+                                </p>
+                            </div>
+                            <div class="col s12">
+                                <span class="card-field"> Aadhaar Card No : {{ currentTenant.aadhaarCardNo }}</span><br>
+                                <span class="card-field" ng-repeat="familys in currentTenant.tenantFamilies">
+                                    Family Member : {{ familys.name }} ({{familys.relationship.text}})
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->                
+                <div id="tenanthistory">
+                    <div class="card1" ng-repeat="item in flatOwnerHistory | filter : { flatOwnerType : 2 }">
+                        <div class="row" style="margin-bottom: 0px;">
+                            <div class="col s4">
+                                <div class="card-field-img" style="text-align:center">
+                                    <img src="assets/images/profile.png" height="75">
+                                </div>
+                                <h5 style="text-align:center">{{ item.flatOwner.name }} </h5>
+                            </div>
+                            <div class="col s8">
+                                <p class="card-field">
+                                    Phone No : {{ item.flatOwner.mobileNo }}<br>
+                                    Email : {{ item.flatOwner.emailId }}<br>
+                                    DOB : {{ item.flatOwner.dateOfBirth | date : 'dd/MM/yyyy' }}<br>
+                                    Gender : {{ item.flatOwner.gender.text }}<br>
+                                    Aadhaar No : {{ item.flatOwner.aadhaarCardNo }}<br>
+                                    Member Since : {{ item.memberSinceDate | date : 'dd/MM/yyyy' }}<br>
+                                    Member Till : {{ item.memberTillDate | date : 'dd/MM/yyyy' }}<br>
+                                    Paying Guest: {{ item.isPayGuest ? 'Yes' : 'No' }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+    </div>
+</div>
+<!-- Payment Toggle End -->
+
+<script>
+    $('.tabs').tabs();
+</script>

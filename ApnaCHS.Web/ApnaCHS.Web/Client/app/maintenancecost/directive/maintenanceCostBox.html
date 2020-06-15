@@ -1,0 +1,411 @@
+<div class="row">
+    <div class="form-group row" ng-if="!isDash">
+        <label for="isAvailable" class="col-sm-1 form-control-label">Approved</label>
+        <div class="col-sm-2">
+            <select class="form-control" id="isAvailable" ng-model="searchFormData.isApproved">
+                <!--<option value="">Select Avalibility</option>-->
+                <option value="">All</option>
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+            </select>
+        </div>
+
+        <label for="isRejected" class="col-sm-1 form-control-label">Rejected</label>
+        <div class="col-sm-2">
+            <select class="form-control" id="isRejected" ng-model="searchFormData.isRejected">
+                <option value="">All</option>
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+            </select>
+        </div>
+
+        <div>
+            <button type="button" class="btn primary" ng-click="search()"><i class="fa fa-search" aria-hidden="true"></i></button>
+            <button type="button" class="btn primary" ng-click="clearSearch()"><i class="fa fa-eraser" aria-hidden="true"></i></button>
+        </div>
+    </div>
+    <!-- /.row -->
+    <div class="breadcrumb-div margin-bottom">
+        <div class="col-sm-6">
+        </div>
+        <!-- /.col-sm-6 -->
+        <div class="col-sm-6 text-right hidden-xs">
+            <a title="Back" ng-click="onBackClick()" href style="margin-right:10px;" ng-if="!isDash"><i class="fa fa-arrow-left"></i>Back</a>
+            <a title="Create new Maintainance cost" href ng-click="new()" style="margin-right:10px;"><i class="fa fa-plus"></i>New</a>
+            <a title="List All" ng-click="new()" href style="margin-right:10px;" ng-if="isDash"><i class="fa fa-list"></i>All</a>
+            <a id="hidddenNew" style="display:none;" title="Create new Maintainance cost"
+               data-toggle="modal" data-target="#newCostBox">#<i class="fa fa-plus"></i>New</a>
+        </div>
+        <!-- /.col-sm-6 -->
+        <div class="clearfix"></div>
+    </div>
+
+    <table class="table table-striped table-bordered">
+        <thead class="bg-primary">
+            <tr>
+                <th>Definition</th>
+                <th>All Flats</th>
+                <th>Amount</th>
+                <th>Date </th>
+                <th>Start</th>
+                <th>End</th>
+                <th class="text-center">Approved</th>
+                <th class="text-left">Approved By</th>
+                <th ng-if="!isDash">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in recordList">
+                <td>
+                    <strong>{{ item.definition.name }}</strong>
+                    <br ng-if="item.calculationOnArea" />
+                    <span ng-if="item.calculationOnArea">(Calculation On Flat Area)</span>
+                </td>
+                <td>
+                    <span ng-if="item.allFlats">Yes</span>
+
+                    <button type="button" ng-if="!item.allFlats" title="Assign Flats" class="btn btn-success icon-only" ng-click="assignFlats(item,$index)"
+                            data-toggle="modal" data-target="#assignFlatsBox">
+                        <i class="fa fa-home"></i>
+                    </button>
+
+                </td>
+                <td><span>{{ item.amount }}</span></td>
+                <td><span>{{ item.date | date : 'dd/MM/yyyy' }}</span></td>
+                <td><span>{{ item.fromDate | date : 'dd/MM/yyyy' }}</span></td>
+                <td><span>{{ item.toDate | date : 'dd/MM/yyyy' }}</span></td>
+                <td class="text-center">
+                    <span style="margin-right:10px;" ng-if="item.isRejected">Rejected</span>
+
+                    <div ng-if="!item.isRejected">
+
+                        <span style="margin-right:10px;" ng-if="item.isApproved || item.userApproved">Yes</span>
+
+                        <button type="button" ng-if="!item.isApproved && !item.userApproved" title="Approve" class="btn btn-success icon-only"
+                                ng-click="onApprove(item,$index)" data-toggle="modal" data-target="#confirmApprove">
+                            <i class="fa fa-check-square-o"></i>
+                        </button>
+
+                        <button type="button" title="Reject" ng-if="!item.isApproved && !item.userApproved" class="btn btn-danger icon-only"
+                                ng-click="onReject(item,$index)" data-toggle="modal" data-target="#confirmReject">
+                            <i class="fa fa-ban"></i>
+                        </button>
+                    </div>
+                </td>
+                <td>
+                    <span ng-repeat="approval in item.approvals">{{ approval.approvedName }}<br /></span>
+                </td>
+                <td ng-if="!isDash">
+                    <button type="button" title="Comments" class="btn btn-success icon-only" ng-click="onCommentClick(item)" data-toggle="modal" data-target="#commentsBox" ng-if="item.comments.length > 0">
+                        <i class="fa fa-comments"></i>
+                    </button>
+                    <button type="button" ng-if="!item.isApproved && !item.deleted" title="Edit" class="btn btn-success icon-only" ng-click="editMC(item)"
+                            data-toggle="modal" data-target="#newCostBox">
+                        <i class="fa fa-pencil"></i>
+                    </button>
+                    <button type="button" ng-if="!item.deleted" title="Delete" class="btn btn-danger icon-only" ng-click="onDelete(item,$index)"
+                            data-toggle="modal" data-target="#confirmDeleteMCL">
+                        <i class="fa fa-trash-o"></i>
+                    </button>
+                    <button type="button" ng-if="item.deleted" title="Restore" class="btn btn-warning icon-only" ng-click="onRestore(item,$index)"
+                            data-toggle="modal" data-target="#confirmRestore">
+                        <i class="fa fa-check-square-o"></i>
+                    </button>
+                    <button type="button" ng-if="item.isApproved" ng-hide="item.toDate" title="Edit End Date" class="btn btn-success icon-only" ng-click="editMC(item)"
+                            data-toggle="modal" data-target="#editEndDateBox">
+                        <i class="fa fa-calendar"></i>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- /.col-md-6 -->
+    <div class="modal fade" id="newCostBox" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document" style="width: 1020px;">
+            <div class="modal-content" style="width: 1020px;">
+                <form class="form-horizontal" name="userForm" ng-submit="submit()" style="width: 1020px;">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel">{{ formData.isEdit ? 'Update cost' : 'Create new cost' }}<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></h4>
+                    </div>
+                    <div class="modal-body">
+
+
+
+                        <div class="form-group">
+                            <label for="definition" class="col-xs-2 control-label">Definition<span class="color-red">*</span></label>
+                            <div class="col-xs-12 col-md-4">
+                                <select class="form-control" id="definition" ng-model="formData.definition" ng-options="ug.name for ug in definitionList" required>
+                                    <option value="">Select a Definition</option>
+                                </select>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="name" class="col-xs-2 control-label">Amount<span class="color-red">*</span></label>
+                            <div class="col-xs-12 col-md-4">
+                                <input type="number" min="0" class="form-control noscroll" id="amount" placeholder="Amount" ng-model="formData.amount" required>
+                            </div>
+
+                            <div class="col-md-offset-2 col-xs-12 col-md-4">
+                                <input type="checkbox" id="allFlats" ng-model="formData.allFlats"> For All Flats
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+                            <label for="fromDate" class="col-xs-2 control-label">Start Date<span class="color-red">*</span></label>
+                            <div class="col-xs-12 col-md-4">
+                                <input type="date" max="{{ todayDate | date:'yyyy-MM-dd' }}" data-date-format="dd/MM/yyyy" class="form-control" id="fromDate" placeholder="From Date" ng-model="formData.fromDate" required>
+                            </div>
+
+                            <label for="toDate" class="col-xs-2 control-label">End Date</label>
+                            <div class="col-xs-12 col-md-4">
+                                <input type="date" max="2100-01-01" min="{{ formData.fromDate | date:'yyyy-MM-dd' }}" data-date-format="dd/MM/yyyy" class="form-control" id="toDate" placeholder="To Date" ng-model="formData.toDate">
+                            </div>
+                        </div>
+
+
+                        <!--  <div class="form-group col-xs-12 col-md-6 text-center">
+
+                        </div>-->
+
+
+
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="cancelNewMainCostBox" type="button" class="btn btn-default" data-dismiss="modal" ng-click="cancelEdit()">Cancel</button>
+                        <button type="submit" class="btn btn-primary" ng-disabled=" userform.$invalid">{{ formData.isEdit ? 'Update' : 'Create' }}</button>
+                        <!--<button type="button" ng-click="addNewFacility()" class="btn btn-primary">Yes</button>-->
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="editEndDateBox" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document" style="width: 1020px;">
+            <div class="modal-content" style="width: 1020px;">
+                <form class="form-horizontal" name="userForm" ng-submit="submitEndDate()" style="width: 1020px;">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel">Update End Date<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="toDate" class="col-xs-2 control-label">End Date</label>
+                            <div class="col-xs-12 col-md-4">
+                                <input type="date" class="form-control" id="toDate" placeholder="To Date" ng-model="formData.toDate">
+                            </div>
+                        </div>
+
+                        <!--  <div class="form-group col-xs-12 col-md-6 text-center">
+
+                        </div>-->
+
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="cancelEditEndDateBox" type="button" class="btn btn-default" data-dismiss="modal" ng-click="cancelEdit()">Cancel</button>
+                        <button type="submit" class="btn btn-primary" ng-disabled=" userform.$invalid">{{ formData.isEdit ? 'Update' : 'Create' }}</button>
+                        <!--<button type="button" ng-click="addNewFacility()" class="btn btn-primary">Yes</button>-->
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- /.col-md-6 -->
+    <div class="modal fade" id="confirmApprove" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <!--<form ng-submit="selectedItem.isApproved ? reject(selectedItem,selectedItem.index) : approve(selectedItem,selectedItem.index)">-->
+            <form ng-submit="approve()">
+                <div class="modal-content" style="width:768px;">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel">Confirm {{ selectedItem.isApproved ? 'Rejection' : 'Approval'}} <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></h4>
+                    </div>
+                    <div class="modal-body">
+                        <label class="control-label">
+                            <span>Do you want to {{ selectedItem.isApproved ? 'Reject' : 'Approve' }} the cost?</span>
+                        </label>
+                        <div class="form-group">
+                            <textarea class="form-control" rows="10" ng-model="note" placeholder="Approval note" required></textarea>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="cancelConfirmApproveBox" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Yes</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- /.col-md-6 -->
+    <div class="modal fade" id="confirmDeleteMCL" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="width:768px;">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Confirm Delete <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></h4>
+                </div>
+                <div class="modal-body">
+
+                    <span>Do you want to delete the cost?</span>
+
+
+                    <div class="clearfix"></div>
+                </div>
+                <div class="modal-footer">
+                    <button id="cancelConfirmDeleteMCL" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="button" ng-click="delete(selectedItem,selectedItem.index)" class="btn btn-primary">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- /.col-md-6 -->
+    <div class="modal fade" id="confirmRestore" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="width:768px;">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Confirm Restore <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></h4>
+                </div>
+                <div class="modal-body">
+
+                    <span>Do you want to restore the cost?</span>
+
+
+                    <div class="clearfix"></div>
+                </div>
+                <div class="modal-footer">
+                    <button id="cancelConfirmRestore" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="button" ng-click="restore(selectedItem,selectedItem.index)" class="btn btn-primary">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- /.col-md-6 -->
+    <div class="modal fade" id="assignFlatsBox" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="width:768px;">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Assign Flats For {{ selectedMCLine.definition.text }} Cost<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></h4>
+                </div>
+                <div class="modal-body">
+
+
+                    <div class="col-md-12">
+                        <div class="panel border-primary no-border border-3-top lobipanel" ng-repeat="item in facilityRecords">
+                            <div class="panel-heading">
+                                <div class="panel-title">
+                                    <h5>{{ item.name }}</h5>
+                                </div>
+                                <div class="dropdown" ng-if="!selectedMCLine.isApproved">
+                                    <ul class="dropdown-menu dropdown-menu-right">
+                                        <li>
+                                            <a title="All" ng-click="allFlatsInFacility(item)">
+                                                <i class="panel-control-icon glyphicon glyphicon-check"></i><span class="control-title">All Flats</span>
+                                                <span>All</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a title="Clear All" ng-click="clearAllFlatsInFacility(item)">
+                                                <i class="panel-control-icon glyphicon glyphicon-remove-circle"></i><span class="control-title">All Flats</span>
+                                                <span>Clear</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <div class="dropdown-toggle" data-toggle="dropdown"><span class="panel-control-icon glyphicon glyphicon-cog"></span></div>
+                                </div>
+                            </div>
+                            <div class="panel-body p-20">
+
+                                <div ng-repeat="floor in item.floors" ng-if="floor.flats.length > 0">
+                                    <div class="mt-3 mb-3 floor-heading-with-alert alert-info">
+                                        <div class="col-md-2">
+                                            <span>{{ floor.name }}</span>
+                                        </div>
+                                        <div class="col-md-10 text-right" ng-if="!selectedMCLine.isApproved">
+                                            <a title="All" ng-click="allFlatsInFloor(floor)">
+                                                <i class="panel-control-icon glyphicon glyphicon-check"></i>
+                                                <span>All</span>
+                                            </a>
+
+                                            <a title="Clear All" ng-click="clearAllFlatsInFloor(floor)">
+                                                <i class="panel-control-icon glyphicon glyphicon-remove-circle"></i>
+                                                <span>Clear</span>
+                                            </a>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+
+                                    <div class="panel bg-gray">
+                                        <div class="panel-body">
+                                            <button type="button" title="" class="btn icon-only" ng-class="{ 'btn-default' : !flat.selected, 'btn-success' : flat.selected }"
+                                                    ng-click="toggleFlatSelection(flat)" ng-repeat="flat in floor.flats" style="margin-left:2px;width: 68px;" ng-disabled="selectedMCLine.isApproved">
+                                                <i class="fa fa-home"></i> {{ flat.name }}
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.col-md-12 -->
+
+
+                    <div class="clearfix"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" ng-click="updateFlats()" ng-if="!selectedMCLine.isApproved">Update</button>
+                    <button id="cancelAssignFlatsBox" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="confirmReject" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <form ng-submit="reject()">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel">Confirm Reject<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></h4>
+                    </div>
+                    <div class="modal-body">
+                        <label class="control-label">
+                            Do you want to reject selected records?
+                        </label>
+                        <div class="form-group">
+                            <textarea class="form-control" rows="10" ng-model="note" placeholder="Approval note" required></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="cancelConfirmReject" type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                        <button type="submit" class="btn btn-primary">Yes</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal fade" id="commentsBox" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Comments for {{ selectedItem.definition.name }}<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></h4>
+                </div>
+                <div class="modal-body">
+                    <commentbox form-data="selectedItem" table="commentTableName"></commentbox>
+                </div>
+                <div class="modal-footer">
+                    <button id="cancelApproveSelected" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

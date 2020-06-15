@@ -1,0 +1,37 @@
+<!-- Toggle -->
+<div class="h-60">
+    <div class="">
+        <ul class="">
+            <li class="top-header">Transaction History</li>
+        </ul>
+    </div>
+
+    <div class="tab-content">
+        <div id="payment" class="tab-pane fade in active">
+            <div class="card1" ng-repeat="bill in recordList">
+                <div class="row" style="margin-bottom: 0px;">
+                    <div class="col s3">
+                        <div class="card-field-img">
+                            <img src="assets/images/buildings.png" height="50">
+                        </div>
+                    </div>
+                    <div class="col s9">
+                        <!-- <div class="amount-weight">
+                            {{ bill.name }}
+                        </div>  -->
+                        <div class="card-field">Transaction No. : {{ bill.transactionNo }}</div>
+                        <p class="card-field">Amount : {{ bill.amount }}</p>
+                        <p class="card-field">Date : {{ bill.date | date : 'dd/MM/yyyy' }}</p>
+                        <p class="card-field">Mode : {{ bill.mode.text }}</p>
+                        <p class="card-field">Reference : <span ng-if="bill.mode.id != 2">{{ bill.reference }}</span>
+                            <span ng-if="bill.mode.id == 2">{{ bill.chequeNo }} - {{ bill.chequeDate| date : 'dd/MM/yyyy'}}
+                                <br />
+                                {{ bill.bank }} - {{ bill.branch}}</span>
+                        </p>                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Toggle End -->

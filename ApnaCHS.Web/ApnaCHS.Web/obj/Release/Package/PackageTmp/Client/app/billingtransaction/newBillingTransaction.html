@@ -1,0 +1,90 @@
+<div class="row">
+    <div class="col-xs-12">
+        <div class="panel">
+            <div class="panel-heading">
+                <div class="panel-title">
+                    <h5>Payment Collection</h5>
+                </div>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal" name="userForm" ng-submit="submit()">
+                    <div class="form-group">
+                        <label for="receiptNo" class="col-xs-2 control-label">Bill No<span class="color-red">*</span></label>
+                        <div class="col-xs-12 col-md-4">
+                            <input type="number" class="form-control" id="receiptNo" placeholder="Bill No" ng-model="formData.receiptNo" min="1" required>
+                        </div>
+                        <span ng-if="flatDues.receiptNo">Last Bill No - {{flatDues.receiptNo}}</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="amount" class="col-xs-2 control-label">Amount<span class="color-red">*</span></label>
+                        <div class="col-xs-12 col-md-4">
+                            <input type="number" class="form-control" id="amount" placeholder="Amount" ng-model="formData.amount" min="1" required>
+                        </div>
+                        <span ng-if="flatDues.amount">Current Due - {{flatDues.amount}}</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="mode" class="col-xs-6 col-md-2 control-label">Mode of payment<span class="color-red">*</span></label>
+                        <div class="col-xs-12 col-md-4">
+                            <select class="form-control" id="mode" ng-model="formData.mode" ng-options="ug.text for ug in paymentMode" ng-change="onPaymentModeChange()" required>
+                                <option value="">Select a Mode</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-if="formData.mode.id == 3 || formData.mode.id == 4 || formData.mode.id == 5||formData.mode.id == 6||formData.mode.id == 7">
+                        <label for="reference" class="col-xs-2 control-label">Reference<span class="color-red">*</span></label>
+                        <div class="col-xs-12 col-md-4">
+                            <input type="text" class="form-control" id="reference" placeholder="Reference" ng-model="formData.reference" required>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-if="formData.mode.id ==2  ">
+                        <label for="ChequeDetails" class="col-xs-2 control-label">Cheque Details<span class="color-red">*</span></label>
+                        <div class="col-xs-9 col-md-2">
+                            <input type="date" class="form-control" id="chequeDate" placeholder="cheque Date" ng-model="formData.chequeDate" required>
+                        </div>
+                        <div class="col-xs-9 col-md-2">
+                            <input type="text" class="form-control" id="chequeNo" placeholder="Cheque No" ng-model="formData.chequeNo" required>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-if="formData.mode.id ==2  ">
+                        <label for="" class="col-xs-2 control-label"></label>
+                        <div class="col-xs-9 col-md-2">
+                            <input type="text" class="form-control" id="bank" placeholder="Bank" ng-model="formData.bank" required>
+                        </div>
+                        <div class="col-xs-9 col-md-2">
+                            <input type="text" class="form-control" id="branch" placeholder="Branch" ng-model="formData.branch" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description" class="col-xs-6 col-md-2 control-label">Description</label>
+                        <div class="col-xs-12 col-md-4">
+                            <textarea class="form-control" id="description" rows="7"
+                                      placeholder="Description" ng-model="formData.description"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="form-group col-xs-12 col-md-6 text-center">
+                            <button type="button" class="btn btn-default" ng-click="onBackClick()">Back</button>
+                            <button type="submit" class="btn btn-primary" ng-disabled="userForm.$invalid">Create</button>
+                        </div>
+                    </div>
+
+                    <div class="form-group" ng-if="result.transactionNo">
+                        <div class="col-xs-6 col-md-4 text-right">
+                            <h5 class="marks" for="description" class="control-label warning">Last transaction reference no.</h5>
+                        </div>
+                        <div class="col-xs-12 col-md-1">
+                            <a><h5 class="marks">{{ result.transactionNo }}</h5></a>
+                        </div>
+                        <div class="col-xs-12 col-md-5 text-left">
+                            <button type="button" class="btn btn-success" ng-click="">Print</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- /.col-md-12 -->
+</div>
+<!-- /.row -->

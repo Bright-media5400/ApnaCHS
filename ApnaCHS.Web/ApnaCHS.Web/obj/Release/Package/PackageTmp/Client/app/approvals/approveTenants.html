@@ -1,0 +1,206 @@
+<div class="col-md-12">
+    <div class="panel">
+        <div class="panel-heading">
+            <div class="panel-title">
+                <h3>Tenant Approvals</h3>
+                <br />
+
+                <div class="form-group row">
+                    <label for="isAvailable" class="col-sm-1 form-control-label">Approved</label>
+                    <div class="col-sm-2">
+                        <select class="form-control" id="isAvailable" ng-model="searchFormData.isApproved">
+                            <!--<option value="">Select Avalibility</option>-->
+                            <option value="">All</option>
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+
+                    <label for="isRejected" class="col-sm-1 form-control-label">Rejected</label>
+                    <div class="col-sm-2">
+                        <select class="form-control" id="isRejected" ng-model="searchFormData.isRejected">
+                            <option value="">All</option>
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <button type="button" class="btn primary" ng-click="search()"><i class="fa fa-search" aria-hidden="true"></i></button>
+                        <button type="button" class="btn primary" ng-click="clearSearch()"><i class="fa fa-eraser" aria-hidden="true"></i></button>
+                    </div>
+                </div>
+
+                <button type="button" class="btn btn-default" ng-click="onBackClick()">Back</button>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#approveSelected"
+                        ng-disabled="selectedList.length == 0">
+                    <i class="fa fa-check-square-o"></i>Approve Selected
+                </button>
+            </div>
+        </div>
+        <div id="exportReport">
+
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered">
+                    <!--<caption>Lista de usuarios.</caption>-->
+                    <thead class="bg-primary">
+                        <tr>
+                            <th class="text-center" ng-click="onAllSelectedToggle(item)">
+                                <input type="checkbox" ng-model="allSelected" ng-change="onToggleSelected()" />
+                            </th>
+                            <th>Flat</th>
+                            <th>Name</th>
+                            <th>Mobile No</th>
+                            <th>Email</th>
+                            <th>Aadhaarcard No</th>
+                            <th>Approved</th>
+                            <th class="text-left">Approved By</th>
+                            <th>Message</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in recordList">
+                            <th class="text-center" scope="row" ng-click="onSelectClick(item)">
+                                <input type="checkbox" ng-model="item.selected" ng-if="!item.isApproved  && !item.userApproved && !item.isRejected" />
+                                <!--{{ item.id }}-->
+                            </th>
+                            <td>
+                                <span ng-repeat="flat in item.flats">{{ flat.flat.name }}<br /></span>
+                            </td>
+                            <td>{{item.name}}</td>
+                            <td>{{item.mobileNo}}</td>
+                            <td>{{item.emailId}}</td>
+                            <td>{{item.aadhaarCardNo}}</td>
+                            <td>
+                                <span style="margin-right:10px;" ng-if="item.isRejected">Rejected</span>
+
+                                <div ng-if="!item.isRejected">
+
+                                    <span style="margin-right:10px;" ng-if="item.isApproved || item.userApproved">Yes</span>
+
+                                    <button type="button" ng-if="!item.isApproved && !item.userApproved" title="Approve" class="btn btn-success icon-only" ng-click="onApprove(item,$index)"
+                                            data-toggle="modal" data-target="#confirmApprove">
+                                        <i class="fa fa-check-square-o"></i>
+                                    </button>
+
+                                    <button type="button" title="Reject" ng-if="!item.isApproved && !item.userApproved" class="btn btn-danger icon-only" ng-click="onReject(item,$index)"
+                                            data-toggle="modal" data-target="#confirmReject">
+                                        <i class="fa fa-ban"></i>
+                                    </button>
+                                </div>
+                            </td>
+                            <td>
+                                <span ng-repeat="approval in item.approvals">{{ approval.approvedName }}<br /></span>
+                            </td>
+                            <td><span>{{item.message}}</span></td>
+                            <td>
+                                <button type="button" title="Comments" class="btn btn-success icon-only" ng-click="onCommentClick(item)" data-toggle="modal" data-target="#commentsBox" ng-if="item.comments.length > 0">
+                                    <i class="fa fa-comments"></i>
+                                </button>
+
+                                <span ng-repeat="f in item.flats">
+                                    <a title="View" class="btn btn-success icon-only" href="#flat/details/{{f.flat.id}}">
+                                        <i class="fa fa-eye"></i>
+                                    </a>
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+    <!-- /.panel -->
+</div>
+<!-- /.col-md-6 -->
+<div class="modal fade" id="confirmApprove" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <form ng-submit="approve()">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Confirm Approve<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></h4>
+                </div>
+                <div class="modal-body">
+                    <label class="control-label">
+                        Do you want to approve selected records?
+                    </label>
+                    <div class="form-group">
+                        <textarea class="form-control" rows="10" ng-model="note" placeholder="Approval note" required></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="cancelConfirmDelete" type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                    <button type="submit" class="btn btn-primary">Yes</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal fade" id="confirmReject" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <form ng-submit="reject()">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Confirm Reject<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></h4>
+                </div>
+                <div class="modal-body">
+                    <label class="control-label">
+                        Do you want to reject selected records?
+                    </label>
+                    <div class="form-group">
+                        <textarea class="form-control" rows="10" ng-model="note" placeholder="Approval note" required></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="cancelConfirmReject" type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                    <button type="submit" class="btn btn-primary">Yes</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- /.col-md-6 -->
+<div class="modal fade" id="approveSelected" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <form ng-submit="approveAll()">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Confirm Approve<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></h4>
+                </div>
+                <div class="modal-body">
+                    <label class="control-label">
+                        Do you want to approve all selected records?
+                    </label>
+                    <div class="form-group">
+                        <textarea class="form-control" rows="10" ng-model="note" placeholder="Approval note" required></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="cancelApproveSelected" type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                    <button type="submit" class="btn btn-primary">Yes</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- /.col-md-6 -->
+<div class="modal fade" id="commentsBox" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Comments for {{ selectedItem.definition.name }}<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></h4>
+            </div>
+            <div class="modal-body">
+                <commentbox form-data="selectedItem" table="commentTableName"></commentbox>
+            </div>
+            <div class="modal-footer">
+                <button id="cancelApproveSelected" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

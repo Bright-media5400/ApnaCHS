@@ -1,0 +1,128 @@
+﻿<!DOCTYPE html>
+<html ng-app="app">
+
+	<head>
+		<title></title>
+		<meta charset="utf-8">
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+		<link rel="stylesheet" href="assets/css/materialize.min.css">
+		<link rel="stylesheet" href="assets/css/owl.carousel.min.css">
+		<link rel="stylesheet" href="assets/css/owl.theme.default.min.css">
+		<link rel="stylesheet" href="assets/css/style.css">
+		<link rel="stylesheet" href="assets/css/custom.css">
+		<link href="assets/css/toastr/toastr.css" rel="stylesheet" />
+	</head>
+
+	<body class="" ng-controller="mainController">
+
+	<div ng-include="'app/login/login.html'" ng-if="!isUserAuthenticated"></div>
+		
+	<div ng-include="'app/home/header.html'" ng-if="isUserAuthenticated"></div>
+	<div ng-include="'app/home/footer.html'" ng-if="isUserAuthenticated"></div>
+	
+	<!-- Insert this line above script imports  -->
+	<script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+        
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/js/bootstrap.min.js"></script>
+	    <script src="assets/js/materialize.min.js"></script>
+	    <script src="assets/js/owl.carousel.min.js"></script>
+		<!-- <script src="assets/js/main.js"></script> -->
+		<script src="assets/js/toastr/toastr.js"></script>
+
+	<!-- Insert this line after script imports -->
+	<script>if (window.module) module = window.module;</script>	
+
+    <script src="assets/js/angular.min.js"></script>
+    <!-- router -->
+    <script src="assets/js/angular-ui-router.js"></script>
+
+
+	<script src="assets/js/angular-local-storage.min.js"></script>
+    <script src="assets/js/angular-route.min.js"></script>
+    <script src="assets/js/angular-toastr.tpls.js"></script>
+
+    <script src="app/lib/app.js"></script>
+    <script src="app/lib/authInterceptorService.js"></script>
+    <script src="app/lib/authService.js"></script>
+    <script src="app/lib/common.js"></script>
+    <script src="app/lib/constant.js"></script>
+    <script src="app/lib/router.js"></script>
+    <script src="app/lib/sumofvalue.js"></script>
+	<script src="app/lib/sortfunction.js"></script>
+	<script src="app/lib/contains.js"></script>
+	<script src="app/home/commonService.js"></script>
+
+	<script src="app/home/mainController.js"></script>
+	<script src="app/login/loginController.js"></script>
+	<script src="app/maintenance/maintenanceHomeController.js"></script>
+	<script src="app/maintenance/member/currentDuesController.js"></script>
+	<script src="app/maintenance/member/transactionHistoryController.js"></script>
+	<script src="app/maintenance/member/previousBillsController.js"></script>
+	<script src="app/maintenance/member/billDetailsController.js"></script>
+	<script src="app/society/selectsocietyController.js"></script>
+	<script src="app/complex/selectcomplexController.js"></script>
+	<script src="app/society/member/societyDetailsController.js"></script>
+	<script src="app/society/admin/societyDetailsController.js"></script>
+	<script src="app/securitystaff/member/securityStaffController.js"></script>
+	<script src="app/societystaff/member/societyStaffController.js"></script>
+	
+
+	<script src="app/flat/member/flatListController.js"></script>
+	<script src="app/flat/flatReportController.js"></script>
+
+	<script src="app/facility/facilityDetailsController.js"></script>
+	<script src="app/facility/facilityListController.js"></script>
+	<script src="app/flat/member/flatDetails.js"></script>
+
+	<script src="app/floor/floorDetailsController.js"></script>
+	<script src="app/asset/assetListController.js"></script>
+
+	    <script>
+	    	$(document).ready(function(){
+			  $('.owl-carousel').owlCarousel({
+				    loop:true,
+				    margin:10,
+				    responsiveClass:true,
+				    responsive:{
+				        0:{
+				            items:1,
+				            nav:true
+				        },
+				        600:{
+				            items:3,
+				            nav:false
+				        },
+				        1000:{
+				            items:5,
+				            nav:true,
+				            loop:false
+				        }
+				    }
+				})
+
+                // Welcome notification
+                toastr.options = {
+                    "closeButton": true,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-top-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "30000",
+                    "hideDuration": "100000",
+                    "timeOut": "350000",
+                    "extendedTimeOut": "100000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                }
+			});
+	    </script>
+	</body>   
+</html>

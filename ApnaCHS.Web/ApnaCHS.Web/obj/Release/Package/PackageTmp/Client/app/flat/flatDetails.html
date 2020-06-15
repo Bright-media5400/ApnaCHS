@@ -1,0 +1,739 @@
+﻿<div class="container-fluid">
+    <div class="row page-title-div">
+        <div class="col-sm-6">
+            <h2 class="title">Flat - {{ editFormData.name }}</h2>
+        </div>
+    </div>
+</div>
+
+<section class="section pt-n">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel border-primary no-border border-3-top">
+                    <div class="panel-body p-20">
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs border-bottom border-primary" role="tablist">
+                            <li role="presentation" class="active"><a class="" target="_self" href="#tab1" aria-controls="profile7" role="tab" data-toggle="tab">Details</a></li>
+                            <li role="presentation" class=""><a class="" target="_self" href="#tab2" aria-controls="profile7" role="tab" data-toggle="tab">Current Owner</a></li>
+                            <li role="presentation" class=""><a class="" target="_self" href="#tab3" aria-controls="profile7" role="tab" data-toggle="tab">Owner History</a></li>
+                            <!--<li role="presentation" class=""><a class="" target="_self" href="#tab4" aria-controls="profile7" role="tab" data-toggle="tab">Current Tenant</a></li>-->
+                            <li role="presentation" class=""><a class="" target="_self" href="#tab5" aria-controls="profile7" role="tab" data-toggle="tab" ng-show="editFormData.flatOwners.length > 0">Tenant History</a></li>
+                        </ul>
+                        <!-- Tab panes -->
+                        <div class="tab-content bg-white p-15">
+
+                            <div role="tabpanel" class="tab-pane active" id="tab1">
+
+                                <div class="row">
+                                    <!-- /.row -->
+                                    <div class="row breadcrumb-div margin-bottom">
+                                        <div class="col-sm-6">
+
+                                        </div>
+                                        <!-- /.col-sm-6 -->
+                                        <div class="col-sm-6 text-right hidden-xs">
+
+                                            <a title="Back" ng-click="onBackClick()" href style="margin-right:10px;"><i class="fa fa-arrow-left"></i>Back</a>
+                                            <a title="Edit Flat" href ng-click="edit()" ng-if="!editFormData.isEdit" style="margin-right:10px;"><i class=" fa fa-edit"></i>Edit</a>
+                                            <a title="Delete Flat" href ng-click="onDeleteFlat(editFormData)" data-toggle="modal" data-target="#removeFlatBox"><i class=" fa fa-trash-o"></i>Delete</a>
+
+                                        </div>
+
+                                        <!-- /.col-sm-6 -->
+
+                                        <div class="form-horizontal" ng-if="!editFlat.isEdit">
+                                            <div class="form-group">
+                                                <label for="name" class="col-xs-4 col-md-2 control-label">Name - </label>
+                                                <div class=" col-xs-8 col-md-10 mt-5">
+                                                    <span class="sub-title">{{ editFormData.name }}</span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="name" class="col-xs-4 col-md-2 control-label">Flat Type - </label>
+                                                <div class=" col-xs-8 col-md-10 mt-5">
+                                                    <span class="sub-title">{{ editFormData.flatType.text || 'Not set' }}</span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="name" class="col-xs-2 control-label">Total Area - </label>
+                                                <div class=" col-xs-8 col-md-10 mt-5">
+                                                    <span class="sub-title">{{ editFormData.totalArea }} <span ng-if="editFormData.totalArea">sqft</span></span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="name" class="col-xs-2 control-label">Build-Up Area - </label>
+                                                <div class=" col-xs-8 col-md-10 mt-5">
+                                                    <span class="sub-title">{{ editFormData.buildUpArea }} <span ng-if="editFormData.buildUpArea">sqft</span></span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="name" class="col-xs-2 control-label">Carpet Area - </label>
+                                                <div class=" col-xs-8 col-md-10 mt-5">
+                                                    <span class="sub-title">{{ editFormData.carpetArea }} <span ng-if="editFormData.carpetArea">sqft</span></span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="name" class="col-xs-2 control-label">Have Separate Parking - </label>
+                                                <div class=" col-xs-8 col-md-10 mt-5">
+                                                    <span class="sub-title" ng-if="!editFormData.haveParking">{{ editFormData.haveParking ? 'Yes' : 'No' }}</span>
+                                                    <button type="button" ng-if="editFormData.haveParking" title="Assign Parkings" class="btn btn-success icon-only" ng-click="assignParkings()"
+                                                            data-toggle="modal" data-target="#assignParkingBox">
+                                                        <i class="fa fa-product-hunt"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div ng-if="editFormData.haveParking">
+                                                    <label for="name" class="col-xs-2 control-label">Assigned Parkings - </label>
+                                                    <div class=" col-xs-8 col-md-10 mt-5">
+                                                        <button type="button" title="" class="btn icon-only btn-secondary" style="margin-left:2px;width: 125px;"
+                                                                ng-click="onParkingDelete(parking)"
+                                                                ng-repeat="parking in editFormData.flatParkings" data-toggle="modal" data-target="#removeParkingBox">
+                                                            <i ng-if="parking.type == 1" class="fa fa-motorcycle"></i><i ng-if="parking.type == 2" class="fa fa-car"></i><i ng-if="parking.type == 3" class="fa fa-product-hunt"></i><br /> <small>{{ parking.name }}</small>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <form class="form-horizontal" name="userForm" ng-submit="submit()" ng-if="editFlat.isEdit">
+                                            <div class="form-group">
+                                                <label for="name" class="col-xs-2 control-label">Name<span class="color-red">*</span></label>
+                                                <div class="col-xs-12 col-md-4">
+                                                    <input type="text" class="form-control" id="name" placeholder="Name" ng-model="editFlat.name" required>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+
+                                                <label for="flatType" class="col-xs-6 col-md-2 control-label">Type<span class="color-red">*</span></label>
+                                                <div class="col-xs-12 col-md-4">
+                                                    <select class="form-control" id="flatType" ng-model="editFlat.flatType" ng-options="ug.text for ug in udfList" required>
+                                                        <option value="">Select a Type</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="totalArea" class="col-xs-2 control-label">Total Area<span class="color-red">*</span></label>
+                                                <div class="col-xs-12 col-md-2">
+                                                    <input type="text" class="form-control" id="totalArea" title="Total Area in sqft"
+                                                           placeholder="Total Area in sqft" ng-model="editFlat.totalArea" required>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+
+                                                <label for="buildUpArea" class="col-xs-2 control-label">Build-Up Area</label>
+                                                <div class="col-xs-12 col-md-2">
+                                                    <input type="text" class="form-control" id="buildUpArea" title="Carpet Area in sqft"
+                                                           placeholder="Carpet Area in sqft" ng-model="editFlat.buildUpArea">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+
+                                                <label for="carpetArea" class="col-xs-2 control-label">Carpet Area<span class="color-red">*</span></label>
+                                                <div class="col-xs-12 col-md-2">
+                                                    <input type="text" class="form-control" id="carpetArea" title="Carpet Area in sqft"
+                                                           placeholder="Carpet Area in sqft" ng-model="editFlat.carpetArea" required>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="haveParking" class="col-xs-2 control-label"></label>
+                                                <div class="col-xs-12 col-md-4">
+                                                    <input type="checkbox" id="haveParking" title="Have Parking"
+                                                           placeholder="Have Parking" ng-model="editFlat.haveParking">Have Separate Parking
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group col-xs-12 col-md-6 text-center">
+                                                <button type="submit" style="margin-right:10px;" class="btn btn-primary" ng-disabled="userForm.$invalid">Update</button>
+                                                <button type="submit" id="cancelEditFlat" class="btn btn-primary" ng-click="cancelEdit()">Cancel</button>
+                                            </div>
+
+                                        </form>
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div role="tabpanel" class="tab-pane" id="tab2">
+                                <flatowner-details-box edit-form-data="currentFlatOwner.flatOwner" flat-id="currentFlatOwner.flat.id" flat-owner-type="currentFlatOwner.flatOwnerType" member-since-date="currentFlatOwner.memberSinceDate"></flatowner-details-box>
+                            </div>
+
+                            <div role="tabpanel" class="tab-pane" id="tab3">
+
+                                <div class="row">
+                                    <!-- /.row -->
+                                    <div class="row breadcrumb-div margin-bottom">
+                                        <div class="col-sm-6">
+
+                                        </div>
+                                        <!-- /.col-sm-6 -->
+                                        <div class="col-sm-6 text-right hidden-xs">
+                                            <a title="Back" ng-click="onBackClick()" href style="margin-right:10px;"><i class="fa fa-arrow-left"></i>Back</a>
+                                            <a title="Create new flat owner" href data-toggle="modal" data-target="#newFlatOwnerBox"><i class="fa fa-plus"></i>New</a>
+                                        </div>
+                                        <!-- /.col-sm-6 -->
+                                    </div>
+
+                                    <div style="overflow-x:auto;">
+                                        <table class="table table-striped table-bordered">
+                                            <thead class="bg-primary">
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <th>Mobile No</th>
+                                                    <th>Email</th>
+                                                    <th>Gender</th>
+                                                    <th>Aadhaar No</th>
+                                                    <th>DOB</th>
+                                                    <th style="padding-right: 25px;">Member&nbsp;Since</th>
+                                                    <th>Member&nbsp;Till</th>
+                                                    <!--<th>Vehicles</th>-->
+                                                    <th style="padding-right: 37px;">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="udf in editFormData.flatOwners | filter : { flatOwnerType : 1 }">
+                                                    <td><span>{{ udf.flatOwner.name }}</span></td>
+                                                    <td><span>{{ udf.flatOwner.mobileNo }}</span></td>
+                                                    <td><span>{{ udf.flatOwner.emailId }}</span></td>
+                                                    <td><span>{{ udf.flatOwner.gender.text }}</span></td>
+                                                    <td><span>{{ udf.flatOwner.aadhaarCardNo }}</span></td>
+                                                    <td><span>{{ udf.flatOwner.dateOfBirth | date : 'dd/MM/yyyy' }}</span></td>
+                                                    <td>
+                                                        <span>
+                                                            {{ udf.memberSinceDate | date : 'dd/MM/yyyy' }}
+                                                        </span>
+                                                        <button type="button" title="Update Member Since" class="btn btn-success icon-only" ng-click="editSinceDate(udf)"
+                                                                data-toggle="modal" data-target="#editOwnerSinceDateBox" ng-if="!udf.flatOwner.isApproved">
+                                                            <i class="fa fa-pencil"></i>
+                                                        </button>
+
+                                                    </td>
+                                                    <td>
+                                                        <span>
+                                                            {{ udf.memberTillDate | date : 'dd/MM/yyyy' }}
+                                                        </span>
+                                                        <button type="button" title="Add Member Till Date" class="btn btn-success icon-only" ng-click="editOwner(udf)"
+                                                                data-toggle="modal" ng-hide="udf.memberTillDate" data-target="#editOwnerTillDateBox">
+                                                            <i class="fa fa-calendar"></i>
+                                                        </button>
+                                                    </td>
+                                                    <!--<td>
+                                                        <div ng-repeat="vehicle in udf.vehicles">
+                                                            <i ng-if="vehicle.type == 1" class="fa fa-motorcycle"></i>
+                                                            <i ng-if="vehicle.type == 2" class="fa fa-car"></i>
+                                                            <i ng-if="vehicle.type == 3" class="fa fa-product-hunt"></i>
+                                                            <span> -{{ vehicle.number }}</span>
+                                                        </div>
+                                                    </td>-->
+                                                    <td>
+                                                        <button type="button" title="Edit" class="btn btn-success icon-only" ng-click="editOwner(udf)"
+                                                                data-toggle="modal" data-target="#editFlatOwnerBox" ng-if="!udf.flatOwner.isApproved">
+                                                            <i class="fa fa-pencil"></i>
+                                                        </button>
+                                                        <button type="button" ng-if="!udf.deleted && !udf.flatOwner.isApproved" title="Delete" class="btn btn-danger icon-only" ng-click="onDelete(udf.flatOwner)"
+                                                                data-toggle="modal" data-target="#removeOwnerBox">
+                                                            <i class="fa fa-trash-o"></i>
+                                                        </button>
+                                                        <button type="button" ng-if="udf.deleted" title="Restore" class="btn btn-warning icon-only" ng-click="onRestore(udf,$index)"
+                                                                data-toggle="modal" data-target="#confirmRestore">
+                                                            <i class="fa fa-check-square-o"></i>
+                                                        </button>
+
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!--<div role="tabpanel" class="tab-pane" id="tab4">
+                                <flatowner-details-box edit-form-data="currentTenant.flatOwner" flat-id="currentTenant.flat.id"></flatowner-details-box>
+                            </div>-->
+
+                            <div role="tabpanel" class="tab-pane" id="tab5">
+
+                                <div class="row">
+                                    <!-- /.row -->
+                                    <div class="row breadcrumb-div margin-bottom">
+                                        <div class="col-sm-6">
+
+                                        </div>
+                                        <!-- /.col-sm-6 -->
+                                        <div class="col-sm-6 text-right hidden-xs">
+                                            <a title="Back" ng-click="onBackClick()" href style="margin-right:10px;"><i class="fa fa-arrow-left"></i>Back</a>
+                                            <a title="Create new tenant" href data-toggle="modal" data-target="#newTenantBox"><i class="fa fa-plus"></i>New</a>
+                                        </div>
+                                        <!-- /.col-sm-6 -->
+                                    </div>
+
+                                    <div style="overflow-x:auto;">
+                                        <table class="table table-striped table-bordered">
+                                            <thead class="bg-primary">
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <th>Phone No.</th>
+                                                    <th>Email</th>
+                                                    <th>DOB</th>
+                                                    <th>Gender</th>
+                                                    <th>Aadhaar No</th>
+                                                    <th style="padding-right: 35px;">Tenant&nbsp;Since</th>
+                                                    <th>Tenant&nbsp;Till</th>
+                                                    <th>Paying&nbsp;Guest</th>
+                                                    <th style="padding-right: 82px;">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="udf in editFormData.flatOwners | filter : { flatOwnerType : 2 }">
+                                                    <td><span>{{ udf.flatOwner.name }}</span></td>
+                                                    <td><span>{{ udf.flatOwner.mobileNo }}</span></td>
+                                                    <td><span>{{ udf.flatOwner.emailId }}</span></td>
+                                                    <td><span>{{ udf.flatOwner.dateOfBirth | date : 'dd/MM/yyyy' }}</span></td>
+                                                    <td><span>{{ udf.flatOwner.gender.text }}</span></td>
+                                                    <td><span>{{ udf.flatOwner.aadhaarCardNo }}</span></td>
+                                                    <td style="text-align: right;">
+                                                        <span>
+                                                            {{ udf.memberSinceDate | date : 'dd/MM/yyyy' }}
+
+                                                            <button type="button" title="Update Member Since" class="btn btn-success icon-only" ng-click="editSinceDate(udf)"
+                                                                    data-toggle="modal" data-target="#editOwnerSinceDateBox" ng-if="!udf.flatOwner.isApproved">
+                                                                <i class="fa fa-pencil"></i>
+                                                            </button>
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <span>
+                                                            {{ udf.memberTillDate | date : 'dd/MM/yyyy' }}
+                                                            <button type="button" title="Add Member Till Date" class="btn btn-success icon-only" ng-click="editOwner(udf)"
+                                                                    data-toggle="modal" ng-hide="udf.memberTillDate" data-target="#editOwnerTillDateBox">
+                                                                <i class="fa fa-calendar"></i>
+                                                            </button>
+                                                        </span>
+                                                    </td>
+                                                    <td><span>{{ udf.isPayGuest ? 'Yes' : 'No' }}</span></td>
+                                                    <td>
+                                                        <a href="#flatowner/details/{{udf.flatOwner.id}}/{{editFormData.id}}" title="View" class="btn btn-success icon-only"><i class="fa fa-eye"></i></a>
+
+                                                        <button type="button" title="Edit" class="btn btn-success icon-only" ng-click="editOwner(udf)"
+                                                                data-toggle="modal" data-target="#editFlatOwnerBox" ng-if="!udf.flatOwner.isApproved">
+                                                            <i class="fa fa-pencil"></i>
+                                                        </button>
+                                                        <button type="button" ng-if="!udf.deleted && !udf.flatOwner.isApproved" title="Delete" class="btn btn-danger icon-only" ng-click="onDeleteTenant(udf)"
+                                                                data-toggle="modal" data-target="#removeTenantBox">
+                                                            <i class="fa fa-trash-o"></i>
+                                                        </button>
+                                                        <button type="button" ng-if="udf.deleted" title="Restore" class="btn btn-warning icon-only" ng-click="onRestore(udf,$index)"
+                                                                data-toggle="modal" data-target="#confirmRestore">
+                                                            <i class="fa fa-check-square-o"></i>
+                                                        </button>
+
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.col-md-8 -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</section>
+<!-- /.section -->
+<!-- /.col-md-6 -->
+<div class="modal fade" id="newFlatOwnerBox" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document" style="width: 1020px;">
+        <div class="modal-content" style="width: 1020px;">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Create new flat owner<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></h4>
+            </div>
+            <div class="modal-body">
+                <new-flat-owner-box flat-id="flatId" owner-type="1"></new-flat-owner-box>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="newTenantBox" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document" style="width: 1020px;">
+        <div class="modal-content" style="width: 1020px;">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Create new tenant<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></h4>
+            </div>
+            <div class="modal-body">
+                <new-flat-owner-box flat-id="flatId" owner-type="2"></new-flat-owner-box>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editFlatOwnerBox" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <form class="form-horizontal" name="flatOwnerForm" ng-submit="submitFlatOwner()">
+            <div class="modal-content">
+
+                <div class="modal-header" ng-if="editFlatOwner.flatOwnerType==1">
+                    <h4 class="modal-title" id="myModalLabel">Edit flat owner<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></h4>
+                </div>
+                <div class="modal-header" ng-if="editFlatOwner.flatOwnerType==2">
+                    <h4 class="modal-title" id="myModalLabel">Edit tenant<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></h4>
+                </div>
+                <div class="modal-body">
+
+
+                    <div class="form-group">
+                        <label for="name" class="col-xs-4 control-label">Name<span class="color-red">*</span></label>
+                        <div class="col-xs-12 col-md-4">
+                            <input type="text" class="form-control" id="name" placeholder="Name" ng-model="editFlatOwner.name" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="mobileNo" class="col-xs-4 control-label">Mobile No<span class="color-red">*</span></label>
+                        <div class="col-xs-12 col-md-4">
+                            <input type="text" maxlength="10" class="form-control" id="mobileNo" placeholder="Mobile No" ng-model="editFlatOwner.mobileNo" required number-field>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email" class="col-xs-4 control-label">Email<span class="color-red">*</span></label>
+                        <div class="col-xs-12 col-md-4">
+                            <input type="email" class="form-control" id="email" placeholder="Email" ng-model="editFlatOwner.emailId" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="gender" class="col-xs-4 control-label">Gender<span class="color-red">*</span></label>
+                        <div class="col-xs-12 col-md-4">
+                            <select class="form-control" id="gender" ng-model="editFlatOwner.gender" ng-options="ug.text for ug in genderList" required>
+                                <option value="">Select a Gender</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="aadhaarCardNo" class="col-xs-4 control-label">Aadhaar Card No</label>
+                        <div class="col-xs-12 col-md-4">
+                            <input type="text" maxlength="12" class="form-control" id="aadhaarCardNo" placeholder="Aadhaar Card No" ng-model="editFlatOwner.aadhaarCardNo" number-field>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="dateOfBirth" class="col-xs-4 control-label">Date Of Birth</label>
+                        <div class="col-xs-12 col-md-4">
+                            <input type="date" max="{{ todayDate | date:'yyyy-MM-dd' }}" data-date-format="dd/MM/yyyy" class="form-control" id="dateOfBirth" placeholder="Date Of Birth" ng-model="editFlatOwner.dateOfBirth">
+                        </div>
+                    </div>
+
+                    <!--<div class="form-group col-xs-12 col-md-12 text-center">
+                    </div>-->
+                    <div class="clearfix"></div>
+                </div>
+                <div class="modal-footer">
+                    <button id="cancelEditFlatOwnerBox" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary" ng-disabled="flatOwnerForm.$invalid">Update</button>
+                    <!--<button type="button" ng-click="addNewFacility()" class="btn btn-primary">Yes</button>-->
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal fade" id="assignParkingBox" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width:768px;">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Assign Parking For Flat - {{ editFormData.name }}<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></h4>
+            </div>
+            <div class="modal-body">
+
+
+                <div class="col-md-12">
+                    <div class="panel border-primary no-border border-3-top lobipanel" ng-repeat="item in facilityRecords">
+                        <div class="panel-heading">
+                            <div class="panel-title">
+                                <h5>{{ item.name }}</h5>
+                            </div>
+                            <div class="dropdown">
+                                <ul class="dropdown-menu dropdown-menu-right">
+                                    <li>
+                                        <a title="All" ng-click="allParkingsInFacility(item)">
+                                            <i class="panel-control-icon glyphicon glyphicon-check"></i><span class="control-title">All Parkings</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a title="Clear All" ng-click="clearAllParkingsInFacility(item)">
+                                            <i class="panel-control-icon glyphicon glyphicon-remove-circle"></i><span class="control-title">All Parkings</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="dropdown-toggle" data-toggle="dropdown"><span class="panel-control-icon glyphicon glyphicon-cog"></span></div>
+                            </div>
+                        </div>
+                        <div class="panel-body p-20">
+
+                            <div class="panel bg-gray" ng-if="item.type == 3">
+                                <div class="panel-body">
+
+                                    <button type="button" ng-if="parking.flatId == null || parking.flatId == editFormData.id" title="" class="btn icon-only" ng-class="{ 'btn-default' : !parking.selected, 'btn-success' : parking.selected }"
+                                            ng-click="toggleParkingSelection(parking)" ng-repeat-start="parking in item.flatParkings" style="margin-left:2px;width: 125px;">
+                                        <i ng-if="parking.type == 1" class="fa fa-motorcycle"></i><i ng-if="parking.type == 2" class="fa fa-car"></i><i ng-if="parking.type == 3" class="fa fa-product-hunt"></i> {{ parking.name }}<br /> <small>{{showParkingText(parking.type)}}</small>
+                                    </button>
+                                    <button ng-if="parking.flatId != null && parking.flatId != editFormData.id" ng-repeat-end type="button" title="" class="btn icon-only btn-secondary" style="margin-left:2px;width: 125px;">
+                                        <i ng-if="parking.type == 1" class="fa fa-motorcycle"></i><i ng-if="parking.type == 2" class="fa fa-car"></i><i ng-if="parking.type == 3" class="fa fa-product-hunt"></i> {{ parking.name }}<br /> <small>{{showParkingText(parking.type)}}</small>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div ng-repeat="floor in item.floors" ng-if="floor.flatParkings.length > 0">
+
+                                <div class="mt-3 mb-3 floor-heading-with-alert alert-info">
+                                    <div class="col-md-6">
+                                        <span>{{ floor.name }}</span>
+                                    </div>
+                                    <div class="col-md-6 text-right">
+                                        <a title="All" ng-click="allParkingsInFloor(floor)">
+                                            <i class="panel-control-icon glyphicon glyphicon-check"></i>
+                                        </a>
+
+                                        <a title="Clear All" ng-click="clearAllParkingsInFloor(floor)">
+                                            <i class="panel-control-icon glyphicon glyphicon-remove-circle"></i>
+                                        </a>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+
+                                <div class="panel bg-gray">
+                                    <div class="panel-body">
+                                        <button type="button" ng-if="parking.flatId == null || parking.flatId == editFormData.id" title="" class="btn icon-only" ng-class="{ 'btn-default' : !parking.selected, 'btn-success' : parking.selected }"
+                                                ng-click="toggleParkingSelection(parking)" ng-repeat-start="parking in floor.flatParkings" style="margin-left:2px;width: 125px;">
+                                            <i ng-if="parking.type == 1" class="fa fa-motorcycle"></i><i ng-if="parking.type == 2" class="fa fa-car"></i><i ng-if="parking.type == 3" class="fa fa-product-hunt"></i> {{ parking.name }}<br /> <small>{{showParkingText(parking.type)}}</small>
+                                        </button>
+                                        <button ng-if="parking.flatId != null && parking.flatId != editFormData.id" ng-repeat-end type="button" title=""
+                                                class="btn icon-only btn-danger" style="margin-left:2px;width: 125px;">
+                                            <i ng-if="parking.type == 1" class="fa fa-motorcycle"></i><i ng-if="parking.type == 2" class="fa fa-car"></i><i ng-if="parking.type == 3" class="fa fa-product-hunt"></i> {{ parking.name }}<br /> <small>{{showParkingText(parking.type)}}</small>
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.col-md-12 -->
+
+
+                <div class="clearfix"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-click="updateFlats()">Update</button>
+                <button id="cancelAssignFlatsBox" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="removeParkingBox" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width:768px;">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Confirm Remove Parking<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></h4>
+            </div>
+            <div class="modal-body">
+
+                Do you want to remove the Parking from the flat?
+
+                <div class="clearfix"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-click="deleteParking(parking)">Yes</button>
+                <button id="cancelRemoveParkingBox" type="button" class="btn btn-default" data-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="approveFlatOwnerBox" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Confirm Approval<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></h4>
+            </div>
+            <div class="modal-body">
+                Do you want to approve selected {{ editFlatOwner.name }}
+            </div>
+            <div class="modal-footer">
+                <button id="cancelApproveFlatOwnerBox" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" ng-click="approveFlatOwner()" class="btn btn-primary">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="removeOwnerBox" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width:768px;">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Confirm Delete Owner<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></h4>
+            </div>
+            <div class="modal-body">
+
+                Do you want to remove the flatowner?
+
+                <div class="clearfix"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-click="delete(owner)">Yes</button>
+                <button id="cancelRemoveOwnerBox" type="button" class="btn btn-default" data-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="removeTenantBox" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width:768px;">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Confirm Delete Tenant<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></h4>
+            </div>
+            <div class="modal-body">
+
+                Do you want to remove the tenant?
+
+                <div class="clearfix"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-click="deleteTenant(owner)">Yes</button>
+                <button id="cancelRemoveTenantBox" type="button" class="btn btn-default" data-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editOwnerTillDateBox" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <form class="form-horizontal" name="flatOwnerTillDateForm" ng-submit="submitOwnerTillDate()">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Add Member Till Date<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label for="memberTillDate" class="col-xs-4 control-label">Member Till Date<span class="color-red">*</span></label>
+                        <div class="col-xs-12 col-md-4">
+                            <input type="date" max="{{ todayDate | date:'yyyy-MM-dd' }}" data-date-format="dd/MM/yyyy" class="form-control" id="memberTillDate" placeholder="Member Till Date" ng-model="editFlatOwner.memberTillDate" required>
+                        </div>
+                    </div>
+
+                    <!--<div class="form-group col-xs-12 col-md-12 text-center">
+                         </div>-->
+
+                </div>
+                <div class="modal-footer">
+                    <button id="cancelFlatOwnerTillDateBox" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary" ng-disabled="flatOwnerTillDateForm.$invalid">Update</button>
+                    <!--<button type="button" ng-click="addNewFacility()" class="btn btn-primary">Yes</button>-->
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal fade" id="editTenantTillDateBox" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Add Tenant Till Date<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" name="editTenantTillDateForm" ng-submit="submitOwnerTillDate()">
+
+                    <div class="form-group">
+                        <label for="memberTillDate" class="col-xs-4 control-label">Tenant Till Date</label>
+                        <div class="col-xs-12 col-md-4">
+                            <input type="date" max="{{ todayDate | date:'yyyy-MM-dd' }}" data-date-format="dd/MM/yyyy" class="form-control" id="memberTillDate" placeholder="Member Since Date" ng-model="editFlatOwner.memberTillDate" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-xs-12 col-md-12 text-center">
+                        <button type="submit" class="btn btn-primary" ng-disabled="editTenantTillDateForm.$invalid">Update</button>
+                    </div>
+
+                </form>
+                <div class="clearfix"></div>
+            </div>
+            <div class="modal-footer">
+                <button id="cancelTenantTillDateBox" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <!--<button type="button" ng-click="addNewFacility()" class="btn btn-primary">Yes</button>-->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="removeFlatBox" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width:768px;">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Confirm Delete Flat<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></h4>
+            </div>
+            <div class="modal-body">
+
+                Do you want to remove the flat {{ editFormData.name }}?
+
+                <div class="clearfix"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-click="deleteFlat(editFormData)" data-dismiss="modal">Yes</button>
+                <button id="cancelRemoveFlatBox" type="button" class="btn btn-default" data-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editOwnerSinceDateBox" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <form class="form-horizontal" name="flatOwnerSinceDateForm" ng-submit="submitOwnerSinceDate()">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Update Member Since Date<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label for="memberSinceDate" class="col-xs-4 control-label">Member Since<span class="color-red">*</span></label>
+                        <div class="col-xs-12 col-md-4">
+                            <input type="date" max="{{ todayDate | date:'yyyy-MM-dd' }}" data-date-format="dd/MM/yyyy" class="form-control" id="memberSinceDate" placeholder="Member Since Date" ng-model="editOwnerSinceDate.memberSinceDate" required>
+                        </div>
+                    </div>
+
+                    <!--<div class="form-group col-xs-12 col-md-12 text-center">
+                     </div>-->
+
+                </div>
+                <div class="modal-footer">
+                    <button id="cancelSinceDateBox" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary" ng-disabled="flatOwnerSinceDateForm.$invalid">Update</button>
+                    <!--<button type="button" ng-click="addNewFacility()" class="btn btn-primary">Yes</button>-->
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+

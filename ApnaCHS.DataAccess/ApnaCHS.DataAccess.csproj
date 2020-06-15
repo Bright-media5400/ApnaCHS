@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E0395B74-F50F-4449-9FB0-7435A49A74ED}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ApnaCHS.DataAccess</RootNamespace>
+    <AssemblyName>ApnaCHS.DataAccess</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\ApnaCHS.Web\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\ApnaCHS.Web\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\ApnaCHS.Web\packages\Microsoft.AspNet.Identity.Core.2.2.2\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\ApnaCHS.Web\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.2\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BTAuthorization.cs" />
+    <Compile Include="BTAuthorizationAction.cs" />
+    <Compile Include="DbContext.cs" />
+    <Compile Include="Migrations\202005070824546_Initial.cs" />
+    <Compile Include="Migrations\202005070824546_Initial.Designer.cs">
+      <DependentUpon>202005070824546_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005100508203_Bill_MonthlyAmount.cs" />
+    <Compile Include="Migrations\202005100508203_Bill_MonthlyAmount.Designer.cs">
+      <DependentUpon>202005100508203_Bill_MonthlyAmount.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005101248074_Bill_BillType.cs" />
+    <Compile Include="Migrations\202005101248074_Bill_BillType.Designer.cs">
+      <DependentUpon>202005101248074_Bill_BillType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005101652567_Added_Openinginterest_in_society.cs" />
+    <Compile Include="Migrations\202005101652567_Added_Openinginterest_in_society.Designer.cs">
+      <DependentUpon>202005101652567_Added_Openinginterest_in_society.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005110918185_Bill_Note.cs" />
+    <Compile Include="Migrations\202005110918185_Bill_Note.Designer.cs">
+      <DependentUpon>202005110918185_Bill_Note.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\ApplicationRoleRepository.cs" />
+    <Compile Include="Repositories\AttendanceRepository.cs" />
+    <Compile Include="Repositories\BillingRepository.cs" />
+    <Compile Include="Repositories\BillingTransactionRepository.cs" />
+    <Compile Include="Repositories\CommentRepository.cs" />
+    <Compile Include="Repositories\ComplexRepository.cs" />
+    <Compile Include="Repositories\DataApprovalRepository.cs" />
+    <Compile Include="Repositories\FacilityRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Repositories\FlatOwnerFamilyRepository.cs" />
+    <Compile Include="Repositories\FlatOwnerRepository.cs" />
+    <Compile Include="Repositories\FlatParkingRepository.cs" />
+    <Compile Include="Repositories\FlatRepository.cs" />
+    <Compile Include="Repositories\FloorRepository.cs" />
+    <Compile Include="Repositories\InstanceRepository.cs" />
+    <Compile Include="Repositories\MaintenanceCostDefinitionRepository.cs" />
+    <Compile Include="Repositories\MaintenanceCostRepository.cs" />
+    <Compile Include="Repositories\MasterValueRepository.cs" />
+    <Compile Include="Repositories\SecurityStaffRepository.cs" />
+    <Compile Include="Repositories\SocietyAssetRepository.cs" />
+    <Compile Include="Repositories\SocietyDocumentRepository.cs" />
+    <Compile Include="Repositories\SocietyRepository.cs" />
+    <Compile Include="Repositories\SocietyStaffRepository.cs" />
+    <Compile Include="Repositories\UserRepository.cs" />
+    <Compile Include="Repositories\UserRoleRepository.cs" />
+    <Compile Include="Repositories\VehicleRepository.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ApnaCHS.Entities\ApnaCHS.Entities.csproj">
+      <Project>{11210497-11b3-48ac-9c14-fe6d42e0dfd8}</Project>
+      <Name>ApnaCHS.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ApnaCHS.Common\ApnaCHS.Common.csproj">
+      <Project>{6b6f5722-0677-4fc0-a2d3-ebacb1169634}</Project>
+      <Name>ApnaCHS.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202005070824546_Initial.resx">
+      <DependentUpon>202005070824546_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005100508203_Bill_MonthlyAmount.resx">
+      <DependentUpon>202005100508203_Bill_MonthlyAmount.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005101248074_Bill_BillType.resx">
+      <DependentUpon>202005101248074_Bill_BillType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005101652567_Added_Openinginterest_in_society.resx">
+      <DependentUpon>202005101652567_Added_Openinginterest_in_society.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005110918185_Bill_Note.resx">
+      <DependentUpon>202005110918185_Bill_Note.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

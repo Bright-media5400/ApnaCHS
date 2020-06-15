@@ -1,0 +1,393 @@
+<div class="container-fluid">
+    <div class="row page-title-div">
+        <div class="col-sm-6">
+            <h2 class="title">{{ editFormData.name }}</h2>
+            <span class="bg-icon"><i class="fa fa-map-marker"></i></span>
+            <span class="sub-title">{{ editFormData.address }}</span><br>
+            <span class="bg-icon"><i class="fa fa-map-pin"></i></span>
+            <span class="sub-title">{{ editFormData.area }} | {{ editFormData.registrationNo }}</span>
+        </div>
+        <!-- /.col-sm-6 -->
+        <div class="col-sm-6 right-side">
+            <!--<a class="btn bg-black toggle-code-handle tour-four" role="button">Toggle Code!</a>-->
+            <div class="panel bg-gray">
+                <div class="panel-body">
+                    <span class="sub-title">{{ editFormData.contactPerson }}</span>
+                    <span class="bg-icon"><i class="fa fa-user"></i></span><br>
+                    <span class="sub-title">{{ editFormData.email }}</span>
+                    <span class="bg-icon"><i class="fa fa-envelope"></i></span><br>
+                    <span class="sub-title">{{ editFormData.phoneNo }}</span>
+                    <span class="bg-icon"><i class="fa fa-phone"></i></span>
+                </div>
+            </div>
+        </div>
+        <!-- /.col-sm-6 text-right -->
+    </div>
+    <!-- /.row -->
+    <div class="row breadcrumb-div">
+        <div class="col-sm-6">
+            <!--<ul class="breadcrumb">
+                <li><a href="index.html"><i class="fa fa-home"></i> Home</a></li>
+                <li class="active">Dashboard</li>
+            </ul>-->
+        </div>
+        <!-- /.col-sm-6 -->
+        <div class="col-sm-6 text-right hidden-xs">
+            <a href data-target="#editComplexBox" ng-click="edit()" class="pl-20" data-toggle="modal"><i class="fa fa-pencil"></i> Complex</a>
+            <a href data-target="#updateLoginBox" ng-click="edit()" class="pl-20" data-toggle="modal"><i class="fa fa-sign-in "></i> Contact Details</a>
+        </div>
+        <!-- /.col-sm-6 -->
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /.container-fluid -->
+<section class="section">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <a class="dashboard-stat bg-primary">
+                    <span class="number counter">{{ editFormData.totalNoFlats }}</span>
+                    <span class="name">No of Flats</span>
+                    <span class="bg-icon"><i class="fa fa-home"></i></span>
+                </a>
+            </div>
+            <!-- /.col-lg-3 col-md-3 col-sm-6 col-xs-12 -->
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <a class="dashboard-stat bg-danger">
+                    <span class="number counter">{{ editFormData.noOfBuilding }}</span>
+                    <span class="name">No of Buildings</span>
+                    <span class="bg-icon"><i class="fa fa-building-o"></i></span>
+                </a>
+            </div>
+            <!-- /.col-lg-3 col-md-3 col-sm-6 col-xs-12 -->
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <a class="dashboard-stat bg-warning">
+                    <span class="number counter">{{ editFormData.totalParkingSlots }}</span>
+                    <span class="name">No of Parking Slots</span>
+                    <span class="bg-icon"><i class="fa fa-motorcycle"></i></span>
+                </a>
+            </div>
+            <!-- /.col-lg-3 col-md-3 col-sm-6 col-xs-12 -->
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <a class="dashboard-stat bg-success">
+                    <span class="number counter">{{ editFormData.noOfGate }}</span>
+                    <span class="name">No of Gates</span>
+                    <span class="bg-icon"><i class="fa fa-fort-awesome"></i></span>
+                </a>
+            </div>
+            <!-- /.col-lg-3 col-md-3 col-sm-6 col-xs-12 -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</section>
+<!-- /.section -->
+
+<section class="section pt-n">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel border-primary no-border border-3-top" data-panel-control>
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            <h5>Facility Management</h5>
+                        </div>
+                    </div>
+                    <div class="panel-body p-20">
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs border-bottom border-primary" role="tablist">
+                            <li role="presentation"><a class="active" target="_self" href="#tab1" aria-controls="home7" role="tab" data-toggle="tab">Facility</a></li>
+                            <li role="presentation"><a class="" target="_self" href="#tab2" aria-controls="home7" role="tab" data-toggle="tab">{{ editFormData.societies.length > 1 ? 'Societies' : 'Society' }}</a></li>
+                        </ul>
+                        <!-- Tab panes -->
+                        <div class="tab-content bg-white p-15">
+                            <div role="tabpanel" class="tab-pane active" id="tab1">
+
+                                <!-- /.row -->
+                                <div class="row breadcrumb-div margin-bottom">
+                                    <div class="col-sm-6">
+
+                                    </div>
+                                    <!-- /.col-sm-6 -->
+                                    <div class="col-sm-6 text-right hidden-xs">
+                                        <a title="Create new facility" href data-toggle="modal" data-target="#newFacilityBox"><i class="fa fa-plus"></i> New</a>
+                                    </div>
+                                    <!-- /.col-sm-6 -->
+                                </div>
+                                <!-- /.row -->
+
+
+                                <div class="row">
+                                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12 margin-bottom" ng-repeat="facility in editFormData.facilities">
+                                        <a class="dashboard-stat solid-black-1 max-height"
+                                           href="#facility/details/{{facility.id}}">
+                                            <span class="name">{{ facility.name }}</span>
+                                            <span class="name" style="font-size: 0.7em; display: block;">{{ facility.facilityType.text }}</span>
+                                            <span class="bg-icon"><i ng-class="facility.facilityType.imageclass"></i></span>
+                                        </a>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div role="tabpanel" class="tab-pane" id="tab2">
+
+                                <!-- /.row -->
+                                <div class="row breadcrumb-div margin-bottom">
+                                    <div class="col-sm-6">
+
+                                    </div>
+                                    <!-- /.col-sm-6 -->
+                                    <div class="col-sm-6 text-right hidden-xs">
+                                        <a title="Create new facility" href data-toggle="modal" data-target="#newFacilityBox"><i class="fa fa-plus"></i> New</a>
+                                    </div>
+                                    <!-- /.col-sm-6 -->
+                                </div>
+                                <!-- /.row -->
+
+                                <table class="table table-striped table-bordered">
+                                    <thead class="bg-primary">
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="item in editFormData.societies">
+                                            <td class="text-left" scope="row">
+                                                <a ng-click="navToSociety(item)" class="dotted-border">{{ item.name }}</a>
+                                            </td>
+                                            <td><a ng-click="navToSociety(item)" title="View" class="btn btn-success icon-only"><i class="fa fa-eye"></i></a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.col-md-12 -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</section>
+<!-- /.section -->
+
+
+<section class="section pt-n">
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-md-6">
+                <div class="panel border-primary no-border border-3-top" data-panel-control>
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            <h5>User Management</h5>
+                        </div>
+                    </div>
+                    <div class="panel-body p-20">
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs border-bottom border-primary" role="tablist">
+                            <li role="presentation" class="active"><a class="" target="_self" href="#userstab1" aria-controls="profile7" role="tab" data-toggle="tab">Users</a></li>
+                        </ul>
+                        <!-- Tab panes -->
+                        <div class="tab-content bg-white p-15">
+
+                            <div role="tabpanel" class="tab-pane active" id="userstab1">
+
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered">
+                                        <!--<caption>Lista de usuarios.</caption>-->
+                                        <thead class="bg-primary">
+                                            <tr>
+                                                <th class="text-center">Id</th>
+                                                <th class="text-center">Name</th>
+                                                <th class="text-center">Username</th>
+                                                <th class="text-center">Group</th>
+                                                <th class="text-center">Blocked</th>
+                                                <th class="text-center">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="item in userRecords">
+                                                <th class="text-center" scope="row">{{ item.id }}</th>
+                                                <td>{{ item.name }}</td>
+                                                <td>{{ item.userName }}</td>
+                                                <td class="text-center">{{ item.userroles[0].name }}</td>
+                                                <td class="text-center">{{ item.bBlocked ? 'Si' : 'No' }}</td>
+                                                <td class="text-center">
+                                                    <button type="button" title="Edit" class="btn btn-success icon-only" ng-click="edit(item)"><i class="fa fa-pencil"></i></button>
+                                                    <button type="button" title="Delete" class="btn btn-danger icon-only" ng-click="onDelete(item, $index)" data-toggle="modal" data-target="#confirmDelete"><i class="fa fa-trash-o"></i></button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.col-md-6 -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</section>
+<!-- /.section -->
+
+<script>
+    $('[data-panel-control]').lobiPanel({ unpin: false, reload: false, close: false, editTitle: false });
+</script>
+
+
+<!-- /.col-md-6 -->
+<div class="modal fade" id="newFacilityBox" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document" style="width: 1020px;">
+        <div class="modal-content" style="width: 1020px;">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Create new facility<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></h4>
+            </div>
+            <div class="modal-body">
+                <new-facility-box></new-facility-box>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editComplexBox" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document" style="width: 1020px;">
+        <form class="form-horizontal" name="userForm" ng-submit="submit()">
+            <div class="modal-content" style="width: 1020px;">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Update Complex<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="registrationNo" class="col-xs-2 control-label">Registration No<span class="color-red">*</span></label>
+                        <div class="col-xs-12 col-md-4">
+                            <input type="text" class="form-control" id="registrationNo" title="Registration No"
+                                   placeholder="Registration No" ng-model="editFormData.registrationNo" required>
+                        </div>
+
+                        <label for="name" class="col-xs-2 control-label">Complex Name<span class="color-red">*</span></label>
+                        <div class="col-xs-12 col-md-4">
+                            <input type="text" class="form-control" id="name" title="Legal Name as per registration"
+                                   placeholder="Legal Name as per registration" ng-model="editFormData.name" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="address" class="col-xs-2 control-label">Address<span class="color-red">*</span></label>
+                        <div class="col-xs-10">
+                            <textarea class="form-control" id="address" title="Address of the Complex"
+                                      placeholder="Address of the Complex" ng-model="editFormData.address" required></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="area" class="col-xs-2 control-label">Pincode<span class="color-red">*</span></label>
+                        <div class="col-xs-12 col-md-4">
+                            <input type="text" class="form-control" id="area" title="Pincode"
+                                   placeholder="Pincode" ng-model="editFormData.pincode" maxlength="6" pattern="[0-9]{6}" required>
+                        </div>
+
+                        <label for="area" class="col-xs-2 control-label">Area<span class="color-red">*</span></label>
+                        <div class="col-xs-12 col-md-4">
+                            <input type="text" class="form-control" id="area" title="Area of the Complex"
+                                   placeholder="Area of the Complex" ng-model="editFormData.area" required>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="city" class="col-xs-6 col-md-2 control-label">City<span class="color-red">*</span></label>
+                        <div class="col-xs-12 col-md-4">
+                            <select class="form-control" id="city" ng-model="editFormData.city" ng-options="ug.text for ug in cityList" required>
+                                <option value="">Select a city</option>
+                            </select>
+                        </div>
+
+                        <label for="state" class="col-xs-6 col-md-2 control-label">State<span class="color-red">*</span></label>
+                        <div class="col-xs-12 col-md-4">
+                            <select class="form-control" id="state" ng-model="editFormData.state" ng-options="ug.text for ug in stateList" required>
+                                <option value="">Select a state</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="dateOfIncorporation" class="col-xs-2 control-label">Date Of Incorporation<span class="color-red">*</span></label>
+                        <div class="col-xs-12 col-md-4">
+                            <input type="date" max="{{ todayDate | date:'yyyy-MM-dd' }}" data-date-format="dd/MM/yyyy" class="form-control" id="dateOfIncorporation" title="Date Of Incorporation"
+                                   placeholder="Date Of Incorporation" ng-model="editFormData.dateOfIncorporation" required>
+                        </div>
+
+                        <label for="dateOfRegistration" class="col-xs-2 control-label">Date Of Registration<span class="color-red">*</span></label>
+                        <div class="col-xs-12 col-md-4">
+                            <input type="date" max="{{ todayDate | date:'yyyy-MM-dd' }}" data-date-format="dd/MM/yyyy" class="form-control" id="dateOfRegistration" title="Date of Possession/Registration"
+                                   placeholder="Date of Possession/Registration" ng-model="editFormData.dateOfRegistration" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!--<div class="form-group col-xs-12 col-md-6 text-center">
+                    <button type="submit" class="btn btn-primary" ng-disabled="userForm.$invalid">Update</button>
+                </div>-->
+
+                <div class="modal-footer">
+                    <button id="canceleditComplexBox" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary" ng-disabled="userForm.$invalid">Update</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal fade" id="updateLoginBox" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <form class="form-horizontal" name="loginForm" ng-submit="updateLoginDetails()">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Update contact / login details<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label for="contactPerson" class="col-xs-4 control-label">Contact Person<span class="color-red">*</span></label>
+                        <div class="col-xs-4 col-md-8">
+                            <input type="text" class="form-control" id="contactPerson" title="Contact Person"
+                                   placeholder="Contact Person" ng-model="editFormData.contactPerson" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phoneNo" class="col-xs-4 control-label">Mobile No<span class="color-red">*</span></label>
+                        <div class="col-xs-4 col-md-8">
+                            <input type="text" maxlength="10" class="form-control" id="phoneNo" title="Mobile Number"
+                                   placeholder="Mobile Number" ng-model="editFormData.phoneNo" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email" class="col-xs-4 control-label">Email<span class="color-red">*</span></label>
+                        <div class="col-xs-4 col-md-8">
+                            <input type="email" class="form-control" id="email" title="Email"
+                                   placeholder="Email" ng-model="editFormData.email" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button id="cancelLoginBox" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary" ng-disabled="loginForm.$invalid">Update</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

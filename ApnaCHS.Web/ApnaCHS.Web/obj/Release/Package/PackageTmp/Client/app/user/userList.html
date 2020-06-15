@@ -1,0 +1,57 @@
+<div class="col-md-12">
+    <div class="panel">
+        <div class="panel-heading">
+            <div class="panel-title">
+                <h3>Available Users</h3>
+                <br />
+                <button type="button" class="btn btn-default" ng-click="new()"><i class="fa fa-plus"></i>New</button>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+                <!--<caption>Lista de usuarios.</caption>-->
+                <thead class="bg-primary">
+                    <tr>
+                        <!--<th class="text-center">Id</th>-->
+                        <th class="text-center">Name</th>
+                        <th class="text-center">Username</th>
+                        <th class="text-center">Role</th>                        
+                        <th class="text-center">Blocked</th>
+                        <th class="text-center">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in recordList">
+                        <!--<th class="text-center" scope="row">{{ item.id }}</th>-->
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.userName }}</td>
+                        <td class="text-center">{{ item.userroles[0].name }}</td>
+                        <td class="text-center">{{ item.bBlocked ? 'Si' : 'No' }}</td>
+                        <td class="text-center">
+                            <button type="button" title="Edit" class="btn btn-success icon-only" ng-click="edit(item)"><i class="fa fa-pencil"></i></button>
+                            <button type="button" title="Delete" class="btn btn-danger icon-only" ng-click="onDelete(item, $index)" data-toggle="modal" data-target="#confirmDelete"><i class="fa fa-trash-o"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- /.panel -->
+</div>
+<!-- /.col-md-6 -->
+<div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Confirm Delete<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></h4>
+            </div>
+            <div class="modal-body">
+                Do you want to delete user - '<strong>{{selectedItem.userName}}</strong>'?
+            </div>
+            <div class="modal-footer">
+                <button id="cancelConfirmDelete" type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                <button type="button" ng-click="delete()" class="btn btn-primary">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>

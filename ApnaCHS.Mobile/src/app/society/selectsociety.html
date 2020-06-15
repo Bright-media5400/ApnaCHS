@@ -1,0 +1,39 @@
+﻿<!-- Toggle -->
+<div class="h-60">
+    <div class="">
+        <ul class="">
+            <li class="top-header">Select Society</li>
+        </ul>
+    </div>
+
+    <div class="tab-content">
+        <div id="payment" class="tab-pane fade in active">
+            <div class="card1" ng-repeat="society in societyRecords">
+                <a href ng-click="select(society)">
+                    <div class="row" style="margin-bottom: 0px;">
+                        <div class="col s2">
+                            <div class="card-field-img">
+                                <img src="assets/images/buildings.png" height="50">
+                            </div>
+                        </div>
+                        <div class="col s10">
+                            <div class="amount-weight">
+                                {{ society.name }}
+                            </div>
+                            <div class="row" style="margin-bottom: 0px;">
+                                <div class="col s6 card-field-regno">
+                                    Reg No: {{ society.registrationNo}}
+                                </div>
+                                <div class="col s6 card-field-city">
+                                    City: {{ society.city }}
+                                </div>
+                            </div>
+                            <p class="card-field">Address : {{ society.address }}</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Toggle End -->

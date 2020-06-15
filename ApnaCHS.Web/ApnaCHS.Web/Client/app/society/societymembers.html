@@ -1,0 +1,104 @@
+﻿<div class="col-md-12 center">
+    <div class="panel border-primary no-border border-3-top" data-panel-control>
+        <div class="panel-heading">
+            <div class="panel-title">
+                <h5>Society Members</h5>
+                <br />
+                <form>
+                    <div class="form-group row">
+                        <!--<label class="col-sm-1 form-control-label">Master Type :</label>
+                        <div class="col-sm-3">
+                            <select class="form-control" ng-model="typeVal" ng-options="udf.text for udf in udfDefaultList" ng-change="onListTypeChange()">
+                                <option value="">-- Choose Master Type --</option>
+                            </select>
+                        </div>-->
+                        <div class="col-md-12">
+                            <button type="button" class="btn btn-default" ng-click="onBackClick()">Back</button>
+                            <button type="button" class="btn btn-default" title="Society admin's list" ng-click="onAdminsClick()">Admins</button>
+                            <button type="button" class="btn btn-default" title="Society tenants's list" ng-click="onTenantsClick()">Tenants</button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered">
+                    <!--<caption>Lista de usuarios.</caption>-->
+                    <thead class="bg-primary">
+                        <tr>
+                            <!--<th class="text-center">Id</th>-->
+                            <th class="text-left">Name</th>
+                            <th class="text-left">Username</th>
+                            <th class="text-center">Group</th>
+                            <th class="text-center">Blocked</th>
+                            <th class="text-center">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in recordList">
+                            <!--<th class="text-center" scope="row">{{ item.id }}</th>-->
+                            <td>{{ item.name }}</td>
+                            <td>{{ item.userName }}</td>
+                            <td class="text-center">
+                                <span class="label label-info label-wide mr-10" ng-repeat="u in item.userroles">{{ u.name }}<br /></span>
+                            </td>
+                            <!--<td class="text-center">{{ item.bBlocked ? 'Yes' : 'No' }}</td>-->
+                            <td class="text-center">
+                                <span ng-if="item.bBlocked">Yes</span>
+                                <button type="button" title="Block User" class="btn btn-danger icon-only" data-toggle="modal" data-target="#confirmBlock"
+                                        ng-click="onBlockUser(item,$index)" ng-if="!item.bBlocked">
+                                    <i class="fa fa-user-times"></i>
+                                </button>
+                            </td>
+                            <td class="text-center">
+                                <button type="button" title="Make Admin" class="btn btn-success icon-only" data-toggle="modal" data-target="#confirmDelete"
+                                        ng-click="onMakeAdmin(item,$index)">
+                                    <i class="fa fa-user-plus"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="panel-body p-20">
+            <div class="row">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Confirm Delete<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></h4>
+            </div>
+            <div class="modal-body">
+                Do you want to make user - <strong>{{selectedItem.name}}</strong> admin?
+            </div>
+            <div class="modal-footer">
+                <button id="cancelConfirmDelete" type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                <button type="button" ng-click="makeAdmin(selectedItem,selectedItem.index)" class="btn btn-primary">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="confirmBlock" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Confirm Block<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></h4>
+            </div>
+            <div class="modal-body">
+                Do you want to block - <strong>{{selectedUser.name}}</strong> ?
+            </div>
+            <div class="modal-footer">
+                <button id="cancelConfirmBlock" type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                <button type="button" ng-click="blockUser(selectedUser,selectedUser.index)" class="btn btn-primary">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>

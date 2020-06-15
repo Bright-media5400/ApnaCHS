@@ -1,0 +1,29 @@
+<!-- Toggle -->
+<div class="h-60">
+    <div class="">
+        <ul class="">
+            <li class="top-header">Current Dues</li>
+        </ul>
+    </div>
+
+    <div class="tab-content">
+        <div id="payment" class="tab-pane fade in active">
+            <div class="card1" ng-repeat="bill in recordList">
+                <div class="row" style="margin-bottom: 0px;">
+                    <div class="col s3">
+                        <div class="card-field-img">
+                            <img src="assets/images/buildings.png" height="50">
+                        </div>
+                    </div>
+                    <div class="col s9">
+                        <div class="card-field">Bill No : {{ bill.receiptNo }}</div>
+                        <p class="card-field">Amount : {{ bill.amount }}</p>
+                        <p class="card-field">Month : {{ showMonth(bill) + '-' + bill.year }}</p>
+                        <p class="card-field">Flat : {{ bill.flat.name }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Toggle End -->
